@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Canvas Scene Renderer — Scene Preview</title>
+    <style>
+      :root { color-scheme: dark; font-family: ui-sans-serif, system-ui, sans-serif; }
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #101923; color: #e7eef4; }
+      main { width: min(960px, calc(100vw - 32px)); }
+      h1 { margin: 0 0 8px; font-size: 18px; font-weight: 600; }
+      p { margin: 0 0 16px; color: #a9bac8; font-size: 14px; }
+      canvas { display: block; width: 100%; height: auto; border: 1px solid #405462; border-radius: 10px; background: #132638; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Canvas Scene Renderer</h1>
+      <p>静态 2D 场景预览：场景树、局部变换、层级顺序与 Canvas 2D 绘制。</p>
+      <canvas id="scene" width="960" height="540" aria-label="夜色海湾场景预览"></canvas>
+    </main>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
