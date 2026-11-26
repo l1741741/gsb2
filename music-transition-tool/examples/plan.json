@@ -1,0 +1,56 @@
+{
+  "assets": "assets.json",
+  "sample_rate": 44100,
+  "bpm": 120,
+  "beats_per_bar": 4,
+  "output": {
+    "channels": 2,
+    "bit_depth": 16,
+    "gain": 0.72
+  },
+  "preview": {
+    "pre_roll_beats": 2,
+    "post_roll_beats": 2
+  },
+  "end": {"bar": 9, "beat": 1},
+  "program": [
+    {
+      "id": "cue_garden_main",
+      "asset": "garden",
+      "at": {"bar": 1, "beat": 1}
+    },
+    {
+      "id": "cue_market",
+      "asset": "market",
+      "at": {"bar": 3, "beat": 1},
+      "transition": {
+        "id": "t_garden_to_market",
+        "mode": "crossfade",
+        "duration_beats": 1,
+        "anchor": "center",
+        "curve": "equal_power"
+      }
+    },
+    {
+      "id": "cue_harbor",
+      "asset": "harbor",
+      "at": {"bar": 5, "beat": 1},
+      "transition": {
+        "id": "t_market_to_harbor",
+        "mode": "cut"
+      }
+    },
+    {
+      "id": "cue_garden_return",
+      "asset": "garden",
+      "at": {"bar": 7, "beat": 1},
+      "transition": {
+        "id": "t_harbor_to_garden",
+        "mode": "crossfade",
+        "duration_beats": 2,
+        "anchor": "center",
+        "curve": "equal_power"
+      }
+    }
+  ]
+}

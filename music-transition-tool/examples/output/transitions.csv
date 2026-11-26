@@ -1,0 +1,4 @@
+id,index,mode,curve,anchor,from_asset,to_asset,plan_expression,sync_sample,sync_timecode,enter_sample,exit_sample_exclusive,overlap_samples,both_effective_start,both_effective_end_exclusive,preview_start,preview_end_exclusive
+t_garden_to_market,1,crossfade,equal_power,center,garden,market,3.1,176400,00:00:04.000,165375,187425,22050,165390,187411,121275,231525
+t_market_to_harbor,2,cut,,,market,harbor,5.1,352800,00:00:08.000,352800,352800,0,352800,352800,308700,396900
+t_harbor_to_garden,3,crossfade,equal_power,center,harbor,garden,7.1,529200,00:00:12.000,507150,551250,44100,507179,551222,463050,595350

@@ -1,0 +1,36 @@
+{
+  "sample_rate": 44100,
+  "assets": {
+    "garden": {
+      "file": "wavs/garden_stereo.wav",
+      "name": "花园日间（立体声，标记在左，琶音在右，2 小节循环）",
+      "loop": [0, 176400],
+      "entry_sample": 0,
+      "beats": [0, 22050, 44100, 66150, 88200, 110250, 132300, 154350],
+      "verify": {"template": "downbeat_marker_v1", "channel": "L"}
+    },
+    "market": {
+      "file": "wavs/market_stereo.wav",
+      "name": "市集（立体声，标记在右，拨弦在左，1 小节循环）",
+      "loop": [0, 88200],
+      "entry_sample": 0,
+      "beats": [0, 22050, 44100, 66150],
+      "verify": {"template": "downbeat_marker_v1", "channel": "R"}
+    },
+    "harbor": {
+      "file": "wavs/harbor_mono.wav",
+      "name": "港口（单声道，1 小节循环，导出为双声道相同）",
+      "loop": [0, 88200],
+      "entry_sample": 0,
+      "beats": [0, 22050, 44100, 66150],
+      "verify": {"template": "downbeat_marker_v1", "channel": "C"}
+    },
+    "sting": {
+      "file": "wavs/sting_oneshot.wav",
+      "name": "一次性上扬音效（无循环，只有 1 拍）",
+      "entry_sample": 0,
+      "beats": [0],
+      "verify": {"template": "source", "channel": "mix", "length": 128}
+    }
+  }
+}

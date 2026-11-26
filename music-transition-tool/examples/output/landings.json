@@ -1,0 +1,47 @@
+[
+  {
+    "transition_id": "t_garden_to_market",
+    "to_asset": "market",
+    "channel": "R",
+    "expected_sample": 176400,
+    "detected_sample": 176400,
+    "offset_samples": 0,
+    "correlation": 0.377315,
+    "runner_up_correlation": 0.167036,
+    "peak_margin": 0.210279,
+    "template_length": 256,
+    "search_radius_samples": 11025,
+    "passed": true,
+    "corr_threshold": 0.35
+  },
+  {
+    "transition_id": "t_market_to_harbor",
+    "to_asset": "harbor",
+    "channel": "C",
+    "expected_sample": 352800,
+    "detected_sample": 352800,
+    "offset_samples": 0,
+    "correlation": 0.609195,
+    "runner_up_correlation": 0.184537,
+    "peak_margin": 0.424658,
+    "template_length": 256,
+    "search_radius_samples": 11025,
+    "passed": true,
+    "corr_threshold": 0.35
+  },
+  {
+    "transition_id": "t_harbor_to_garden",
+    "to_asset": "garden",
+    "channel": "L",
+    "expected_sample": 529200,
+    "detected_sample": 529200,
+    "offset_samples": 0,
+    "correlation": 0.602459,
+    "runner_up_correlation": 0.177486,
+    "peak_margin": 0.424973,
+    "template_length": 256,
+    "search_radius_samples": 11025,
+    "passed": true,
+    "corr_threshold": 0.35
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "//": "故意失败的计划：sting 是只有 1 拍的无循环素材，却被要求响到第 4 小节。渲染错误必须定位到 t_sting_to_market。",
+  "assets": "assets.json",
+  "sample_rate": 44100,
+  "bpm": 120,
+  "beats_per_bar": 4,
+  "output": {"channels": 2},
+  "end": {"bar": 6, "beat": 1},
+  "program": [
+    {"id": "cue_garden", "asset": "garden", "at": "1.1"},
+    {
+      "id": "cue_sting",
+      "asset": "sting",
+      "at": "2.1",
+      "transition": {"id": "t_garden_to_sting", "mode": "cut"}
+    },
+    {
+      "id": "cue_market_late",
+      "asset": "market",
+      "at": {"bar": 4, "beat": 1},
+      "transition": {"id": "t_sting_to_market", "mode": "cut"}
+    }
+  ]
+}

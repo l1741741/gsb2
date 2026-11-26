@@ -1,0 +1,328 @@
+{
+  "tool": "music-transition-tool",
+  "version": "1.0.0",
+  "project": {
+    "sample_rate": 44100,
+    "bpm": 120.0,
+    "beats_per_bar": 4,
+    "output_channels": 2,
+    "output_gain": 0.72,
+    "total_samples": 705600,
+    "total_seconds": 16.0,
+    "total_timecode": "00:00:16.000",
+    "preview_defaults": {
+      "pre_roll_beats": 2.0,
+      "post_roll_beats": 2.0
+    }
+  },
+  "cues": [
+    {
+      "id": "cue_garden_main",
+      "index": 0,
+      "asset": "garden",
+      "at": {
+        "bar": 1,
+        "beat": 1
+      },
+      "sync_sample": 0,
+      "sync_timecode": "00:00:00.000",
+      "entry_sample": 0
+    },
+    {
+      "id": "cue_market",
+      "index": 1,
+      "asset": "market",
+      "at": {
+        "bar": 3,
+        "beat": 1
+      },
+      "sync_sample": 176400,
+      "sync_timecode": "00:00:04.000",
+      "entry_sample": 0
+    },
+    {
+      "id": "cue_harbor",
+      "index": 2,
+      "asset": "harbor",
+      "at": {
+        "bar": 5,
+        "beat": 1
+      },
+      "sync_sample": 352800,
+      "sync_timecode": "00:00:08.000",
+      "entry_sample": 0
+    },
+    {
+      "id": "cue_garden_return",
+      "index": 3,
+      "asset": "garden",
+      "at": {
+        "bar": 7,
+        "beat": 1
+      },
+      "sync_sample": 529200,
+      "sync_timecode": "00:00:12.000",
+      "entry_sample": 0
+    }
+  ],
+  "transitions": [
+    {
+      "id": "t_garden_to_market",
+      "index": 1,
+      "cue_id": "cue_market",
+      "plan_position": {
+        "expression": {
+          "bar": 3,
+          "beat": 1
+        },
+        "beats_from_origin": 8.0,
+        "bar": 3,
+        "beat": 1.0
+      },
+      "sync": {
+        "sample": 176400,
+        "seconds": 4.0,
+        "timecode": "00:00:04.000",
+        "note": "全局采样；入场素材的 entry_sample 对齐到这里"
+      },
+      "mode": "crossfade",
+      "curve": "equal_power",
+      "anchor": "center",
+      "duration": {
+        "samples": 22050,
+        "beats": 1.0,
+        "seconds": 0.5
+      },
+      "overlap": {
+        "start_sample": 165375,
+        "end_sample_exclusive": 187425,
+        "last_sample_inclusive": 187424,
+        "length_samples": 22050,
+        "length_seconds": 0.5,
+        "start_timecode": "00:00:03.750",
+        "end_timecode": "00:00:04.250"
+      },
+      "incoming": {
+        "asset": "market",
+        "cue_id": "cue_market",
+        "entry_sample": 0,
+        "actual_enter_sample": 165375,
+        "actual_enter_timecode": "00:00:03.750",
+        "source_sample_at_actual_enter": -11025,
+        "wav_sample_read_at_actual_enter": 77175,
+        "pre_roll_samples": 11025,
+        "effective_enter_sample_gain_ge_0.001": 165390
+      },
+      "outgoing": {
+        "asset": "garden",
+        "cue_id": "cue_garden_main",
+        "entry_sample": 0,
+        "actual_exit_sample_exclusive": 187425,
+        "actual_last_sample_inclusive": 187424,
+        "actual_exit_timecode": "00:00:04.250",
+        "source_sample_at_overlap_start": 165375,
+        "wav_sample_read_at_overlap_start": 165375,
+        "source_sample_at_actual_exit_exclusive": 187425,
+        "wav_sample_read_at_actual_exit_exclusive": 11025,
+        "effective_last_sample_gain_ge_0.001": 187410
+      },
+      "both_effective": {
+        "threshold_gain": 0.001,
+        "start_sample": 165390,
+        "end_sample_exclusive": 187411,
+        "length_samples": 22021,
+        "start_timecode": "00:00:03.750",
+        "end_timecode": "00:00:04.250",
+        "note": "两路增益都不低于阈值、可同时听到的区间；cut 时长度为 0"
+      },
+      "preview_region": {
+        "start_sample": 121275,
+        "end_sample_exclusive": 231525,
+        "length_samples": 110250,
+        "start_timecode": "00:00:02.750",
+        "end_timecode": "00:00:05.250",
+        "pre_roll_samples": 44100,
+        "post_roll_samples": 44100,
+        "identity": "该区间导出的 WAV 必须与全程 WAV 的同采样区间逐采样一致"
+      },
+      "checks": {
+        "incoming_entry_is_configured_beat": true,
+        "incoming_configured_beat_count": 4,
+        "outgoing_entry_is_configured_beat": true,
+        "outgoing_configured_beat_count": 8
+      }
+    },
+    {
+      "id": "t_market_to_harbor",
+      "index": 2,
+      "cue_id": "cue_harbor",
+      "plan_position": {
+        "expression": {
+          "bar": 5,
+          "beat": 1
+        },
+        "beats_from_origin": 16.0,
+        "bar": 5,
+        "beat": 1.0
+      },
+      "sync": {
+        "sample": 352800,
+        "seconds": 8.0,
+        "timecode": "00:00:08.000",
+        "note": "全局采样；入场素材的 entry_sample 对齐到这里"
+      },
+      "mode": "cut",
+      "curve": null,
+      "anchor": null,
+      "duration": {
+        "samples": 0,
+        "beats": 0.0,
+        "seconds": 0.0
+      },
+      "overlap": {
+        "start_sample": 352800,
+        "end_sample_exclusive": 352800,
+        "last_sample_inclusive": 352799,
+        "length_samples": 0,
+        "length_seconds": 0.0,
+        "start_timecode": "00:00:08.000",
+        "end_timecode": "00:00:08.000"
+      },
+      "incoming": {
+        "asset": "harbor",
+        "cue_id": "cue_harbor",
+        "entry_sample": 0,
+        "actual_enter_sample": 352800,
+        "actual_enter_timecode": "00:00:08.000",
+        "source_sample_at_actual_enter": 0,
+        "wav_sample_read_at_actual_enter": 0,
+        "pre_roll_samples": 0,
+        "effective_enter_sample_gain_ge_0.001": 352800
+      },
+      "outgoing": {
+        "asset": "market",
+        "cue_id": "cue_market",
+        "entry_sample": 0,
+        "actual_exit_sample_exclusive": 352800,
+        "actual_last_sample_inclusive": 352799,
+        "actual_exit_timecode": "00:00:08.000",
+        "source_sample_at_overlap_start": 176400,
+        "wav_sample_read_at_overlap_start": 0,
+        "source_sample_at_actual_exit_exclusive": 176400,
+        "wav_sample_read_at_actual_exit_exclusive": 0,
+        "effective_last_sample_gain_ge_0.001": 352799
+      },
+      "both_effective": {
+        "threshold_gain": 0.001,
+        "start_sample": 352800,
+        "end_sample_exclusive": 352800,
+        "length_samples": 0,
+        "start_timecode": "00:00:08.000",
+        "end_timecode": "00:00:08.000",
+        "note": "两路增益都不低于阈值、可同时听到的区间；cut 时长度为 0"
+      },
+      "preview_region": {
+        "start_sample": 308700,
+        "end_sample_exclusive": 396900,
+        "length_samples": 88200,
+        "start_timecode": "00:00:07.000",
+        "end_timecode": "00:00:09.000",
+        "pre_roll_samples": 44100,
+        "post_roll_samples": 44100,
+        "identity": "该区间导出的 WAV 必须与全程 WAV 的同采样区间逐采样一致"
+      },
+      "checks": {
+        "incoming_entry_is_configured_beat": true,
+        "incoming_configured_beat_count": 4,
+        "outgoing_entry_is_configured_beat": true,
+        "outgoing_configured_beat_count": 4
+      }
+    },
+    {
+      "id": "t_harbor_to_garden",
+      "index": 3,
+      "cue_id": "cue_garden_return",
+      "plan_position": {
+        "expression": {
+          "bar": 7,
+          "beat": 1
+        },
+        "beats_from_origin": 24.0,
+        "bar": 7,
+        "beat": 1.0
+      },
+      "sync": {
+        "sample": 529200,
+        "seconds": 12.0,
+        "timecode": "00:00:12.000",
+        "note": "全局采样；入场素材的 entry_sample 对齐到这里"
+      },
+      "mode": "crossfade",
+      "curve": "equal_power",
+      "anchor": "center",
+      "duration": {
+        "samples": 44100,
+        "beats": 2.0,
+        "seconds": 1.0
+      },
+      "overlap": {
+        "start_sample": 507150,
+        "end_sample_exclusive": 551250,
+        "last_sample_inclusive": 551249,
+        "length_samples": 44100,
+        "length_seconds": 1.0,
+        "start_timecode": "00:00:11.500",
+        "end_timecode": "00:00:12.500"
+      },
+      "incoming": {
+        "asset": "garden",
+        "cue_id": "cue_garden_return",
+        "entry_sample": 0,
+        "actual_enter_sample": 507150,
+        "actual_enter_timecode": "00:00:11.500",
+        "source_sample_at_actual_enter": -22050,
+        "wav_sample_read_at_actual_enter": 154350,
+        "pre_roll_samples": 22050,
+        "effective_enter_sample_gain_ge_0.001": 507179
+      },
+      "outgoing": {
+        "asset": "harbor",
+        "cue_id": "cue_harbor",
+        "entry_sample": 0,
+        "actual_exit_sample_exclusive": 551250,
+        "actual_last_sample_inclusive": 551249,
+        "actual_exit_timecode": "00:00:12.500",
+        "source_sample_at_overlap_start": 154350,
+        "wav_sample_read_at_overlap_start": 66150,
+        "source_sample_at_actual_exit_exclusive": 198450,
+        "wav_sample_read_at_actual_exit_exclusive": 22050,
+        "effective_last_sample_gain_ge_0.001": 551221
+      },
+      "both_effective": {
+        "threshold_gain": 0.001,
+        "start_sample": 507179,
+        "end_sample_exclusive": 551222,
+        "length_samples": 44043,
+        "start_timecode": "00:00:11.501",
+        "end_timecode": "00:00:12.499",
+        "note": "两路增益都不低于阈值、可同时听到的区间；cut 时长度为 0"
+      },
+      "preview_region": {
+        "start_sample": 463050,
+        "end_sample_exclusive": 595350,
+        "length_samples": 132300,
+        "start_timecode": "00:00:10.500",
+        "end_timecode": "00:00:13.500",
+        "pre_roll_samples": 44100,
+        "post_roll_samples": 44100,
+        "identity": "该区间导出的 WAV 必须与全程 WAV 的同采样区间逐采样一致"
+      },
+      "checks": {
+        "incoming_entry_is_configured_beat": true,
+        "incoming_configured_beat_count": 8,
+        "outgoing_entry_is_configured_beat": true,
+        "outgoing_configured_beat_count": 4
+      }
+    }
+  ]
+}
