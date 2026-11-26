@@ -1,0 +1,11 @@
+{
+  "name": "grid-calibrator-local-tool",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Dependency-free local browser tool for grid-based scan distortion calibration and Canvas PNG export.",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "demo": "python3 -m http.server 4174 --bind 127.0.0.1"
+  }
+}

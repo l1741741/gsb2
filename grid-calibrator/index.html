@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>网格畸变校正工具</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>网格畸变校正工具</h1>
+      <p>标记网格行列 → 多项式拟合 → 同尺寸图片校正 → 透明边界 / 有效矩形 PNG</p>
+    </div>
+    <div class="top-actions">
+      <button id="saveConfigBtn" type="button">保存标定配置</button>
+      <button id="loadConfigBtn" type="button">恢复配置</button>
+      <input id="configInput" type="file" accept="application/json,.json" hidden />
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <section class="panel">
+        <h2>1. 标定图</h2>
+        <label class="file-button">
+          加载标定图片
+          <input id="calibrationInput" type="file" accept="image/*" />
+        </label>
+        <button id="sampleCalibrationBtn" class="secondary" type="button">生成弯曲标定网格</button>
+        <div id="calibrationInfo" class="muted">尚未加载标定图。</div>
+      </section>
+
+      <section class="panel">
+        <h2>2. 网格交点与行列</h2>
+        <div class="grid-inputs">
+          <label>列数<input id="gridColumns" type="number" min="2" max="60" value="11" /></label>
+          <label>行数<input id="gridRows" type="number" min="2" max="60" value="8" /></label>
+          <button id="applyGridBtn" type="button">更新行列</button>
+          <button id="layGridBtn" class="secondary" type="button">铺设初始点阵</button>
+        </div>
+
+        <div class="tool-row" role="group" aria-label="标点工具">
+          <button id="toolSelect" class="tool active" type="button">选择/拖动</button>
+          <button id="toolAddFit" class="tool" type="button">加拟合点</button>
+          <button id="toolAddCheck" class="tool" type="button">加检查点</button>
+        </div>
+        <div class="history-row">
+          <button id="undoBtn" type="button">撤销拖动</button>
+          <button id="redoBtn" type="button">重做</button>
+          <label class="inline-check"><input id="showLabels" type="checkbox" checked /> 显示行列标签</label>
+        </div>
+
+        <div id="selectedEditor" class="selected-editor">
+          <div id="selectedInfo" class="muted">未选中交点。</div>
+          <div class="point-fields">
+            <label>行 R<input id="pointRow" type="number" min="1" step="1" disabled /></label>
+            <label>列 C<input id="pointCol" type="number" min="1" step="1" disabled /></label>
+            <label>角色
+              <select id="pointRole" disabled>
+                <option value="fit">拟合点</option>
+                <option value="check">检查点</option>
+              </select>
+            </label>
+            <button id="deletePointBtn" class="danger" type="button" disabled>删除点</button>
+          </div>
+        </div>
+        <p class="hint">滚轮以光标为中心缩放；拖动空白处平移。缩放后屏幕坐标会实时换算回原图像素。</p>
+      </section>
+
+      <section class="panel">
+        <h2>3. 拟合与残差检查</h2>
+        <div id="fitStatus" class="status status-idle">等待标定。</div>
+        <div id="fitMetrics" class="metrics"></div>
+        <div id="warpMeasurements" class="measurements"></div>
+        <details>
+          <summary>检查点实际残差（不参与拟合）</summary>
+          <div id="residualList" class="residual-list muted">暂无检查点。</div>
+        </details>
+      </section>
+
+      <section class="panel">
+        <h2>4. 同批待校正图片</h2>
+        <label class="file-button">
+          加载待校正图片（可多选）
+          <input id="imageInput" type="file" accept="image/*" multiple />
+        </label>
+        <button id="sampleCheckBtn" class="secondary" type="button">生成弯曲检查图</button>
+        <label class="full-label">当前预览/导出
+          <select id="targetSelect"></select>
+        </label>
+        <div id="targetStatus" class="muted">可先使用生成的检查图。</div>
+      </section>
+
+      <section class="panel">
+        <h2>5. 裁切与 PNG 输出</h2>
+        <label class="full-label">输出网格间距（输出像素/格）
+          <input id="cellPxInput" type="number" min="8" max="512" step="1" value="80" />
+        </label>
+        <div class="crop-grid">
+          <label>左 C0<input id="cropCol0" type="number" step="0.5" value="-0.5" /></label>
+          <label>上 R0<input id="cropRow0" type="number" step="0.5" value="-0.5" /></label>
+          <label>右 C1<input id="cropCol1" type="number" step="0.5" value="10.5" /></label>
+          <label>下 R1<input id="cropRow1" type="number" step="0.5" value="7.5" /></label>
+        </div>
+        <button id="resetCropBtn" class="secondary" type="button">重置为网格外半格</button>
+
+        <label class="full-label">PNG 范围
+          <select id="exportMode">
+            <option value="padded">保留透明边界（按当前裁切）</option>
+            <option value="valid">仅输出最大有效矩形</option>
+          </select>
+        </label>
+        <div id="warpStats" class="muted">尚未生成校正结果。</div>
+        <button id="exportPngBtn" class="primary" type="button">导出 PNG</button>
+        <p class="hint">越界的逆映射像素保持透明；“有效矩形”会自动裁掉这些边界。</p>
+      </section>
+    </aside>
+
+    <section class="workspace">
+      <div class="viewer-toolbar">
+        <div class="tabs" role="tablist">
+          <button class="tab active" data-view="calibrate" type="button">标定标点</button>
+          <button class="tab" data-view="original" type="button">原图</button>
+          <button class="tab" data-view="corrected" type="button">校正图</button>
+          <button class="tab" data-view="grid" type="button">对齐网格</button>
+        </div>
+        <div class="zoom-actions">
+          <button id="zoomOutBtn" type="button" title="缩小">−</button>
+          <span id="zoomLabel">100%</span>
+          <button id="zoomInBtn" type="button" title="放大">+</button>
+          <button id="zoomFitBtn" type="button">适应窗口</button>
+        </div>
+      </div>
+
+      <div id="canvasWrap" class="canvas-wrap">
+        <canvas id="stage"></canvas>
+        <div id="banner" class="banner hidden" role="alert"></div>
+        <div id="emptyHint" class="empty-hint">
+          <strong>从一张标定网格开始</strong>
+          <span>点击左侧“生成弯曲标定网格”可立即体验，或加载自己的标定图并铺设点阵。</span>
+        </div>
+      </div>
+      <div id="statusBar" class="status-bar">就绪。所有计算均在本地浏览器完成，不上传图片。</div>
+    </section>
+  </main>
+
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>
