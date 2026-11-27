@@ -1,0 +1,22 @@
+{
+  "name": "gsb2-sailing-berth-drill",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "原创二维帆船靠站练习：预先编排航向与收帆点，按关卡时间确定性执行，可回放与对比。",
+  "scripts": {
+    "test": "node --disable-warning=ExperimentalWarning --test",
+    "typecheck": "node tools/typecheck.js",
+    "dev": "node tools/serve.ts",
+    "demo": "node tools/serve.ts",
+    "check:plans": "node tools/check-plans.ts",
+    "build:plans": "node tools/emit-plans.ts"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.11",
+    "typescript": "^7.0.2"
+  }
+}

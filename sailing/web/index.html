@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>帆船靠站练习</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <h1>帆船靠站练习</h1>
+          <p>预先编排航向与收帆点，按关卡时间执行；过标、避障、进港都有明确判定。</p>
+        </div>
+        <div class="level-switch" id="level-switch" role="tablist" aria-label="关卡切换"></div>
+        <div class="clock-panel">
+          <label class="field">
+            <span>刷新率</span>
+            <select id="refresh-rate">
+              <option value="30">30 Hz</option>
+              <option value="60" selected>60 Hz</option>
+              <option value="120">120 Hz</option>
+              <option value="144">144 Hz</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>倍速</span>
+            <select id="speed">
+              <option value="0.5">0.5×</option>
+              <option value="1" selected>1×</option>
+              <option value="2">2×</option>
+              <option value="4">4×</option>
+            </select>
+          </label>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="stage">
+          <canvas id="scene" width="960" height="600" aria-label="帆船靠站练习场景"></canvas>
+          <div class="hud" id="hud"></div>
+          <div class="playback" id="playback">
+            <button id="btn-play" class="primary">执行航线</button>
+            <button id="btn-pause">暂停</button>
+            <button id="btn-restart">从头回放</button>
+            <button id="btn-clear">清空记录</button>
+            <div class="timeline-wrap">
+              <input id="timeline" type="range" min="0" max="1" step="0.01" value="0" aria-label="回放时间轴" />
+              <div class="timeline-labels">
+                <span id="timeline-current">0.00s</span>
+                <span id="timeline-total">0.00s</span>
+              </div>
+            </div>
+          </div>
+          <div class="legend">
+            <span><i class="dot gate"></i>浮标标线</span>
+            <span><i class="dot next"></i>下一个浮标</span>
+            <span><i class="dot passed"></i>已通过</span>
+            <span><i class="dot danger"></i>失败位置</span>
+            <span><i class="dot predicted"></i>预计航迹</span>
+          </div>
+        </section>
+
+        <aside class="side">
+          <section class="panel">
+            <header class="panel-head">
+              <h2>关卡</h2>
+              <span class="pill" id="level-hash"></span>
+            </header>
+            <div class="level-info" id="level-info"></div>
+            <ul class="briefing" id="briefing"></ul>
+            <div class="wind-now" id="wind-now"></div>
+            <div class="wind-changes" id="wind-changes"></div>
+          </section>
+
+          <section class="panel">
+            <header class="panel-head">
+              <h2>航线（暂停区编辑）</h2>
+              <span class="pill" id="plan-hash"></span>
+            </header>
+            <div class="plan-tools">
+              <label class="field">
+                <span>插入时间</span>
+                <input id="new-time" type="number" min="0" step="0.25" value="0" />
+              </label>
+              <label class="field">
+                <span>航向°</span>
+                <input id="new-heading" type="number" min="0" max="359" step="1" value="90" />
+              </label>
+              <label class="field">
+                <span>收帆点</span>
+                <input id="new-sheet" type="range" min="0" max="1" step="0.01" value="1" />
+                <output id="new-sheet-value">1.00</output>
+              </label>
+              <button id="btn-add">添加控制点</button>
+            </div>
+            <table class="plan-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>时间 s</th>
+                  <th>航向°</th>
+                  <th>收帆</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="plan-body"></tbody>
+            </table>
+            <div class="plan-actions">
+              <button id="btn-reset-plan">恢复内置航线</button>
+              <button id="btn-export-plan">导出 JSON</button>
+              <button id="btn-import-plan">导入 JSON</button>
+            </div>
+            <p class="hint">编辑只改变航线，不会立刻开船；点“执行航线”或“重跑”才用新航线。</p>
+          </section>
+
+          <section class="panel">
+            <header class="panel-head">
+              <h2>记录与对比</h2>
+            </header>
+            <div class="record-actions">
+              <button id="btn-save-run">保存当前记录为基线</button>
+              <button id="btn-compare">与基线对比</button>
+            </div>
+            <div class="records" id="records"></div>
+            <div class="compare" id="compare"></div>
+          </section>
+
+          <section class="panel">
+            <header class="panel-head">
+              <h2>事件</h2>
+            </header>
+            <ul class="events" id="events"></ul>
+          </section>
+        </aside>
+      </main>
+    </div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
