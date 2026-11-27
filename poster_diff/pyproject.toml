@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "poster-diff"
+version = "0.1.0"
+description = "Dependency-free offline PNG poster comparison with pan/zoom diff reports"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "gsb2 task workspace" }]
+keywords = ["png", "image-diff", "prepress", "offline", "report"]
+dependencies = []
+
+[project.scripts]
+poster-diff = "poster_diff.__main__:main"
+
+[tool.setuptools]
+packages = ["poster_diff", "poster_diff.viewer"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"poster_diff.viewer" = ["index.html", "app.js", "styles.css"]

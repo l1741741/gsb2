@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>海报差异报告</title>
+<link rel="stylesheet" href="viewer/styles.css">
+<script src="report_data.js"></script>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <header>
+      <h1 id="report-title">海报差异报告</h1>
+      <p id="report-meta" class="muted"></p>
+    </header>
+
+    <section id="layer-section">
+      <h2>查看图层</h2>
+      <div class="layer-grid" id="layer-buttons">
+        <button data-layer="appearance" class="active">外观差异</button>
+        <button data-layer="alpha">透明度差异</button>
+        <button data-layer="coverage">覆盖区域</button>
+        <button data-layer="ref">参考图 A</button>
+        <button data-layer="cand">候选图 B</button>
+      </div>
+      <p class="hint" id="layer-hint"></p>
+      <label class="toggle">
+        <input type="checkbox" id="overlay-toggle" checked>
+        在原图上叠加差异标记
+      </label>
+    </section>
+
+    <section id="summary-section">
+      <h2>总览</h2>
+      <table id="summary-table"></table>
+      <div class="overviews">
+        <figure>
+          <img id="thumb-ref" alt="参考图缩略图">
+          <figcaption>参考图 A</figcaption>
+        </figure>
+        <figure>
+          <img id="thumb-cand" alt="候选图缩略图">
+          <figcaption>候选图 B</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="blocks-section">
+      <h2>改动块 (<span id="diff-count">0</span>)</h2>
+      <div class="block-filters">
+        <label>筛选
+          <select id="kind-filter">
+            <option value="all">全部</option>
+            <option value="appearance">仅外观</option>
+            <option value="alpha">仅透明度</option>
+            <option value="both">外观+透明度</option>
+          </select>
+        </label>
+      </div>
+      <div id="block-list" class="block-list"></div>
+    </section>
+
+    <section id="coverage-section">
+      <h2>仅单边覆盖区域 (<span id="coverage-count">0</span>)</h2>
+      <div id="coverage-list" class="block-list"></div>
+    </section>
+
+    <footer class="muted">
+      <p>离线报告 · 所有瓦片按需从本地 shard 加载 · 坐标以参考图 A 为原点</p>
+    </footer>
+  </aside>
+
+  <main id="viewport">
+    <canvas id="map"></canvas>
+    <div id="hud">
+      <span id="coord-readout">—</span>
+      <span id="zoom-readout"></span>
+    </div>
+    <div id="toolbar">
+      <button id="zoom-in" title="放大">＋</button>
+      <button id="zoom-out" title="缩小">－</button>
+      <button id="zoom-fit" title="适合窗口">适合</button>
+      <button id="zoom-one" title="1:1 原始分辨率">1:1</button>
+    </div>
+    <div id="legend"></div>
+  </main>
+</div>
+<script src="viewer/app.js"></script>
+</body>
+</html>

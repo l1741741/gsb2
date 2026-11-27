@@ -1,0 +1,10 @@
+# Generated demo outputs
+demo/sample/
+demo/*/report/
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+venv/
