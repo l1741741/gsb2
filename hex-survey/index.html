@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>六边勘测 · Hex Survey</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">⬡</span>
+        <div>
+          <h1>六边勘测</h1>
+          <span class="brand-sub">HEX SURVEY · 信标标定任务</span>
+        </div>
+      </div>
+      <nav id="levelTabs" class="level-tabs" aria-label="关卡选择"></nav>
+      <div class="top-actions">
+        <button id="btnLoadMap" class="btn ghost" type="button">载入地图</button>
+        <button id="btnLoadSave" class="btn ghost" type="button">读取存档</button>
+        <button id="btnSave" class="btn" type="button">保存存档</button>
+        <input id="fileMap" type="file" accept=".json,application/json" hidden />
+        <input id="fileSave" type="file" accept=".json,application/json" hidden />
+      </div>
+    </header>
+
+    <div id="autoNote" class="auto-note" hidden>
+      <span>已恢复此浏览器中的自动进度。</span>
+      <button id="btnDiscardAuto" class="link-btn" type="button">丢弃自动存档并重开</button>
+    </div>
+
+    <main class="layout">
+      <section class="stage-col">
+        <div id="canvasWrap" class="canvas-wrap">
+          <canvas id="game" aria-label="六边格勘测地图"></canvas>
+
+          <div id="overlay" class="overlay" hidden></div>
+
+          <div id="replayBar" class="replay-bar" hidden>
+            <button id="replayPrev" class="btn icon" type="button" title="上一步">⏮</button>
+            <button id="replayPlay" class="btn icon" type="button" title="播放/暂停">▶</button>
+            <button id="replayNext" class="btn icon" type="button" title="下一步">⏭</button>
+            <input id="replayRange" type="range" min="0" max="0" value="0" />
+            <span id="replayLabel" class="replay-label">0 / 0</span>
+            <select id="replaySpeed" class="select" title="回放速度">
+              <option value="1400">慢速</option>
+              <option value="800" selected>常速</option>
+              <option value="350">快速</option>
+            </select>
+            <button id="replayClose" class="btn ghost" type="button">退出回放</button>
+          </div>
+        </div>
+
+        <div class="stage-footer">
+          <div class="mode-switch" role="tablist" aria-label="交互模式">
+            <button id="modePlay" class="mode-btn active" type="button">勘测行动</button>
+            <button id="modeQuery" class="mode-btn" type="button">视线裁定查询</button>
+          </div>
+          <label class="coord-toggle">
+            <input id="toggleCoords" type="checkbox" /> 显示六边坐标
+          </label>
+          <span class="hint-line">点击绿色亮格移动；点击「观测」标定当前视线内的信标。</span>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <section class="card mission">
+          <h2 id="levelName">—</h2>
+          <p id="levelBrief" class="brief"></p>
+          <p id="rulingNote" class="ruling" hidden></p>
+        </section>
+
+        <section class="card">
+          <div class="budget-row">
+            <div class="budget-num">
+              <span id="budgetLeft">0</span><small> / <span id="budgetMax">0</span> 预算</small>
+            </div>
+            <div class="stats">
+              <span>移动 <b id="statMoves">0</b></span>
+              <span>观测 <b id="statObserves">0</b></span>
+              <span>信标 <b id="beaconProgress">0/0</b></span>
+            </div>
+          </div>
+          <div class="budget-track"><div id="budgetBar" class="budget-bar"></div></div>
+          <ul id="beaconList" class="beacon-list"></ul>
+          <p id="costLine" class="cost-line"></p>
+        </section>
+
+        <section class="card">
+          <h3>观测高度与行动</h3>
+          <div id="stanceList" class="stance-list"></div>
+          <button id="observeBtn" class="btn primary block" type="button">观测</button>
+          <div class="action-grid">
+            <button id="btnUndo" class="btn" type="button">↶ 撤回</button>
+            <button id="btnHint" class="btn" type="button">💡 提示</button>
+            <button id="btnReplay" class="btn" type="button">↻ 重放本局</button>
+            <button id="btnRestart" class="btn danger-ghost" type="button">⟲ 重新开始</button>
+          </div>
+          <p id="message" class="message" role="status"></p>
+        </section>
+
+        <section id="inspectorCard" class="card">
+          <h3>地块检视</h3>
+          <div id="inspector" class="inspector"><p class="muted">点击任意地块查看高度、障碍、记录与视线裁定。</p></div>
+        </section>
+
+        <section id="queryCard" class="card query-card" hidden>
+          <h3>视线裁定实验室</h3>
+          <p class="muted small">
+            切换到「视线裁定查询」后，在地图上依次点选 <b>A 观测格</b> 与 <b>B 目标格</b>（A 可以是任意格，不必是勘测员）。
+            闭区间超覆盖裁定：擦边格也参与；视线严格低于遮挡顶才被挡，齐平放行。
+          </p>
+          <div class="query-actions">
+            <button id="queryUsePlayer" class="btn small" type="button">A=勘测员位置</button>
+            <button id="queryViewA" class="btn small" type="button">显示 A 格可视域</button>
+            <button id="queryViewPlayer" class="btn small ghost" type="button">恢复我的可视域</button>
+            <button id="queryClear" class="btn small ghost" type="button">清除</button>
+          </div>
+          <p id="queryViewInfo" class="muted small" hidden></p>
+          <div id="queryResult" class="query-result"><p class="muted">尚未选择 A、B。</p></div>
+        </section>
+
+        <section class="card">
+          <h3>图例</h3>
+          <ul class="legend">
+            <li><span class="swatch vis"></span>当前视线可见</li>
+            <li><span class="swatch seen"></span>曾观测记录（上次结果）</li>
+            <li><span class="swatch move"></span>合法移动（含消耗）</li>
+            <li><span class="swatch wall"></span>石墙 / 障碍（不可通行、挡视线）</li>
+            <li><span class="swatch beacon"></span>已标定信标（永久保留）</li>
+            <li><span class="swatch fog"></span>尚未观测记录</li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <h3>行动日志</h3>
+          <ul id="logList" class="log-list"></ul>
+        </section>
+
+        <section class="card" id="tipsCard">
+          <h3>勘测提示</h3>
+          <ul id="tipsList" class="tips-list"></ul>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      纯本地 TypeScript + Canvas 2D · 地图 / 存档均为本地 JSON · 精确分数裁定擦边视线 ·
+      运行测试：<code>npm test</code>
+    </footer>
+
+    <script type="module" src="./dist/main.js"></script>
+  </body>
+</html>

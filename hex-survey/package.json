@@ -1,0 +1,17 @@
+{
+  "name": "hex-survey",
+  "version": "1.0.0",
+  "private": true,
+  "description": "六边格地形勘测：有限移动/观测预算下标定信标的原创 TypeScript 小游戏",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "tsc -p tsconfig.test.json && node --test dist-test/test/*.test.js",
+    "serve": "node scripts/serve.mjs",
+    "start": "npm run build && node scripts/serve.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.9.0"
+  }
+}

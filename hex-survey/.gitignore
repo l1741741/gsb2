@@ -1,0 +1,7 @@
+node_modules/
+dist/
+dist-test/
+.shots/
+.chrome-prof/
+.chrome-home/
+*.log
