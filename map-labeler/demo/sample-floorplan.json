@@ -1,0 +1,44 @@
+{
+  "map": {
+    "bounds": { "x": 0, "y": 0, "width": 1000, "height": 640 }
+  },
+  "canvas": { "width": 1280, "height": 720 },
+  "style": {
+    "fontFamily": "\"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+    "fontSize": 13,
+    "maxTextWidth": 220
+  },
+  "forbidden": [
+    { "id": "entrance-a", "x": 40, "y": 600, "width": 48, "height": 40, "reason": "入口A 禁放" },
+    { "id": "entrance-b", "x": 110, "y": 600, "width": 48, "height": 40, "reason": "入口B 禁放" },
+    { "id": "entrance-c", "x": 180, "y": 600, "width": 48, "height": 40, "reason": "入口C 禁放" },
+    { "id": "entrance-d", "x": 250, "y": 600, "width": 48, "height": 40, "reason": "入口D 禁放" },
+    { "id": "entrance-e", "x": 320, "y": 600, "width": 48, "height": 40, "reason": "入口E 禁放" },
+    { "id": "entrance-f", "x": 390, "y": 600, "width": 48, "height": 40, "reason": "入口F 禁放" },
+    { "id": "entrance-g", "x": 460, "y": 600, "width": 48, "height": 40, "reason": "入口G 禁放" },
+    { "id": "entrance-h", "x": 530, "y": 600, "width": 48, "height": 40, "reason": "入口H 禁放" },
+    { "id": "main-corridor", "x": 480, "y": 0, "width": 40, "height": 600, "reason": "中央通道" },
+    { "id": "escalator", "x": 700, "y": 80, "width": 80, "height": 80, "reason": "扶梯" },
+    { "id": "service-shaft", "x": 60, "y": 60, "width": 80, "height": 60, "reason": "设备井" }
+  ],
+  "anchors": [
+    { "id": "entrance-a", "x": 64, "y": 590, "text": "入口 A", "priority": 5 },
+    { "id": "entrance-b", "x": 134, "y": 590, "text": "入口 B", "priority": 4 },
+    { "id": "entrance-c", "x": 204, "y": 590, "text": "入口 C", "priority": 4 },
+    { "id": "entrance-d", "x": 274, "y": 590, "text": "入口 D", "priority": 3 },
+    { "id": "entrance-e", "x": 344, "y": 590, "text": "入口 E", "priority": 5 },
+    { "id": "entrance-f", "x": 414, "y": 590, "text": "入口 F", "priority": 2 },
+    { "id": "entrance-g", "x": 484, "y": 590, "text": "入口 G", "priority": 3 },
+    { "id": "entrance-h", "x": 554, "y": 590, "text": "入口 H", "priority": 2 },
+    { "id": "hall-bronze", "x": 200, "y": 250, "text": "常设展厅 · 青铜时代\n三层主展区，含互动沙盘与定时讲解", "priority": 5 },
+    { "id": "hall-silk", "x": 620, "y": 300, "text": "特展厅：丝路遗珍（展期至三月底，团队参观请提前一周预约）", "priority": 4 },
+    { "id": "shop", "x": 820, "y": 420, "text": "文创商店", "priority": 2 },
+    { "id": "auditorium", "x": 300, "y": 420, "text": "多功能报告厅，可容纳 220 人", "priority": 3 },
+    { "id": "cafe", "x": 850, "y": 180, "text": "咖啡休息区", "priority": 2 },
+    { "id": "service-center", "x": 180, "y": 150, "text": "观众服务中心：寄存、轮椅借用、母婴室与失物招领", "priority": 4 },
+    { "id": "restroom", "x": 640, "y": 520, "text": "洗手间", "priority": 3 },
+    { "id": "vip", "x": 360, "y": 80, "text": "VIP 接待室", "priority": 1 },
+    { "id": "fire-exit", "x": 900, "y": 80, "text": "消防通道（常闭式防火门，请勿堆放展品）", "priority": 1 },
+    { "id": "elevator", "x": 560, "y": 200, "text": "电梯厅", "priority": 3 }
+  ]
+}

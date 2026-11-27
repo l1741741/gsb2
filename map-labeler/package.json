@@ -1,0 +1,17 @@
+{
+  "name": "map-labeler",
+  "version": "1.0.0",
+  "private": true,
+  "description": "本地图面标注排版工具：读入平面 JSON，用 Canvas 2D 完成带优先级的标签自动排版、折叠与导出",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "tsc -p tsconfig.json && node --test \"dist/tests/*.test.js\"",
+    "demo": "npm run build && python3 -m http.server 4191",
+    "cli": "npm run build && node dist/cli/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "*",
+    "typescript": "^7.0.2"
+  }
+}

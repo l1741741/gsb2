@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>图面标注排版工具 · Map Labeler</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+        --bg: #0c121a;
+        --panel: #141f2c;
+        --panel-2: #1b2a3a;
+        --line: #2c4055;
+        --text: #e4edf5;
+        --muted: #8fa5b8;
+        --accent: #5db3ff;
+        --warn: #e0a44d;
+        --danger: #e05c5c;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--text); font-size: 13px; }
+      header {
+        display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+        padding: 10px 16px; background: var(--panel); border-bottom: 1px solid var(--line);
+      }
+      header h1 { font-size: 15px; margin: 0; font-weight: 600; }
+      header .hint { color: var(--muted); font-size: 12px; }
+      .layout { display: grid; grid-template-columns: 1fr 320px; gap: 12px; padding: 12px; height: calc(100vh - 52px); }
+      .stage { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+      .toolbar { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+      button, select, input[type="number"] {
+        background: var(--panel-2); color: var(--text); border: 1px solid var(--line);
+        border-radius: 6px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+      }
+      button:hover { border-color: var(--accent); }
+      button.primary { background: #1d4e7c; border-color: #2f6fa8; }
+      input[type="number"] { width: 84px; cursor: text; }
+      .canvas-wrap {
+        flex: 1; min-height: 0; display: grid; place-items: center;
+        background: #080d13; border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+      }
+      canvas { background: #0f1620; touch-action: none; max-width: 100%; max-height: 100%; }
+      aside {
+        background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+        display: flex; flex-direction: column; min-height: 0;
+      }
+      aside h2 { font-size: 13px; margin: 0; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+      .sidebar-list { overflow: auto; padding: 6px; flex: 1; }
+      .label-row {
+        padding: 7px 9px; border-radius: 7px; margin-bottom: 4px; background: var(--panel-2);
+        border-left: 3px solid var(--line); cursor: pointer;
+      }
+      .label-row:hover { outline: 1px solid var(--accent); }
+      .label-row.folded { opacity: 0.72; border-left-color: var(--muted); }
+      .label-row.pinned { border-left-color: var(--warn); }
+      .label-row.conflict { border-left-color: var(--danger); }
+      .label-row .title { display: flex; justify-content: space-between; gap: 6px; font-weight: 600; }
+      .label-row .meta { color: var(--muted); font-size: 11px; margin-top: 3px; line-height: 1.5; }
+      .badge { font-size: 10px; padding: 1px 6px; border-radius: 9px; white-space: nowrap; }
+      .badge.priority { background: #23405c; color: #9fd0ff; }
+      .badge.folded-badge { background: #3d3a2a; color: var(--warn); }
+      .badge.conflict-badge { background: #4a2626; color: #ff9b9b; }
+      .warnings {
+        margin: 6px; padding: 8px; border: 1px solid #6b4f22; background: #241c0e;
+        border-radius: 8px; color: #e8c98a; font-size: 11px; line-height: 1.6; white-space: pre-wrap;
+      }
+      .warnings:empty { display: none; }
+      .stat { color: var(--muted); font-size: 11px; padding: 4px 8px; border-top: 1px solid var(--line); }
+      input[type="file"] { display: none; }
+      label.file-button {
+        background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px;
+        padding: 6px 10px; font-size: 12px; cursor: pointer; display: inline-block;
+      }
+      label.file-button:hover { border-color: var(--accent); }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>图面标注排版工具</h1>
+      <span class="hint">滚轮缩放 · 拖空白平移 · 拖标签改位置（自动固定）· 双击标签折叠/展开 · Shift+滚轮旋转</span>
+    </header>
+    <div class="layout">
+      <section class="stage">
+        <div class="toolbar">
+          <label class="file-button">载入平面图 JSON
+            <input type="file" id="file-input" accept=".json,application/json">
+          </label>
+          <label class="file-button">载入设计存档
+            <input type="file" id="design-input" accept=".json,application/json">
+          </label>
+          <button id="rerun" class="primary">重新排版</button>
+          <button id="reset-view">适配视图</button>
+          <button id="rotate-l" title="逆时针旋转 15°">⟲ 15°</button>
+          <button id="rotate-r" title="顺时针旋转 15°">⟳ 15°</button>
+          <span style="width:10px"></span>
+          <select id="preset">
+            <option value="1280x720">横版 1280×720</option>
+            <option value="960x540">横版 960×540</option>
+            <option value="420x900">窄版 420×900</option>
+            <option value="360x740">窄版 360×740</option>
+            <option value="custom">自定义</option>
+          </select>
+          <input type="number" id="canvas-w" min="200" max="4000" value="1280">
+          <input type="number" id="canvas-h" min="200" max="4000" value="720">
+          <button id="apply-size">应用规格</button>
+          <span style="width:10px"></span>
+          <button id="export-png">导出 PNG</button>
+          <button id="export-manifest">导出坐标清单</button>
+          <button id="save-design">保存设计</button>
+          <button id="clear-manual">清除人工改动</button>
+        </div>
+        <div class="canvas-wrap">
+          <canvas id="stage" width="1280" height="720" aria-label="标注排版画布"></canvas>
+        </div>
+      </section>
+      <aside>
+        <h2>标签状态（点击行可折叠/展开）</h2>
+        <div id="warnings" class="warnings"></div>
+        <div id="sidebar" class="sidebar-list"></div>
+        <div id="stat" class="stat"></div>
+      </aside>
+    </div>
+    <script type="module" src="../dist/demo/main.js"></script>
+  </body>
+</html>
