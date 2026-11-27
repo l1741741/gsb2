@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wav-sampler"
+version = "1.0.0"
+description = "Offline PCM WAV sampling tool with a project timeline, overlap priority and gap fill"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+wav-sampler = "wav_sampler.cli:main"
+
+[tool.setuptools]
+packages = ["wav_sampler"]

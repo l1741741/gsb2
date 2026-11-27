@@ -1,0 +1,52 @@
+{
+  "sample_rate": 48000,
+  "output_channels": 2,
+  "output_sample_width": 2,
+  "segments": [
+    {
+      "id": "device-A-01",
+      "path": "wav/deviceA-part1.wav",
+      "start": {"seconds": 0.0},
+      "duration": {"seconds": 3600.0},
+      "priority": 10,
+      "comment": "双声道设备 A, 与 device-B 在整点附近搭接; 高优先级获胜"
+    },
+    {
+      "id": "device-B-01",
+      "path": "wav/deviceB-part1.wav",
+      "start": {"seconds": 3599.5},
+      "duration": {"seconds": 1800.0},
+      "priority": 5,
+      "comment": "单声道设备 B, 默认上混为两个输出声道 (均取源声道 0)"
+    },
+    {
+      "id": "device-A-02",
+      "path": "wav/deviceA-part2.wav",
+      "start": {"seconds": 5400.0},
+      "channel_map": [3, -1],
+      "comment": "四声道文件: 输出0取源声道3, 输出1补静音; 省略 duration 则以实际帧数为准"
+    }
+  ],
+  "ranges": [
+    {
+      "id": "take-01",
+      "start": {"seconds": 120.0},
+      "end": {"seconds": 480.0},
+      "output": "take-01.wav"
+    },
+    {
+      "id": "take-02",
+      "start": {"seconds": 3599.0},
+      "end": {"seconds": 3601.0},
+      "output": "take-02.wav",
+      "comment": "跨过 3600s 整点, 覆盖 A/B 搭接边界"
+    },
+    {
+      "id": "take-03",
+      "start": {"seconds": 5300.0},
+      "end": {"seconds": 5600.0},
+      "output": "take-03.wav",
+      "comment": "前段 [5399.5,5400) 无覆盖, 自动补静音"
+    }
+  ]
+}
