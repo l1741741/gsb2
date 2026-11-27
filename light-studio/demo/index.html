@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Light Studio — 二维灯光离线预演</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div id="app">
+      <aside id="panel">
+        <h1>Light Studio</h1>
+        <p class="subtitle">二维灯光离线预演 · 本地数据 · Canvas 2D</p>
+
+        <section class="panel-block">
+          <h2>样例场景</h2>
+          <select id="sample-select"></select>
+          <button id="reset-sample" class="btn" type="button">重新载入样例</button>
+        </section>
+
+        <section class="panel-block">
+          <h2>视图与门限</h2>
+          <label class="row">
+            <span>照度门限</span>
+            <input id="threshold" type="number" min="0" step="0.01">
+          </label>
+          <label class="row">
+            <span>暗区网格单元</span>
+            <input id="cell-size" type="number" min="2" step="1">
+          </label>
+          <div class="btn-row">
+            <button id="toggle-dim" class="btn" type="button">隐藏暗区</button>
+            <button id="fit-view" class="btn" type="button">适配视图</button>
+          </div>
+          <div class="btn-row">
+            <button id="probe-mode" class="btn" type="button">探针模式：关</button>
+            <button id="clear-probe" class="btn" type="button">清除探针</button>
+          </div>
+          <p class="hint">滚轮以指针为锚缩放；空白处拖动平移；拖动灯体改位置；按住 Alt/Option 拖动灯改朝向。</p>
+        </section>
+
+        <section class="panel-block">
+          <h2>灯具（逐盏开关）</h2>
+          <ul id="light-list" class="light-list"></ul>
+          <div id="light-editor" class="light-editor hidden">
+            <h3 id="editor-title">灯具参数</h3>
+            <label class="row"><span>x</span><input id="le-x" type="number" step="1"></label>
+            <label class="row"><span>y</span><input id="le-y" type="number" step="1"></label>
+            <label class="row"><span>朝向 (°)</span><input id="le-aim" type="number" step="1"></label>
+            <label class="row"><span>半锥角 (°)</span><input id="le-fov" type="number" min="1" max="180" step="1"></label>
+            <label class="row"><span>射程</span><input id="le-range" type="number" min="10" step="5"></label>
+            <label class="row"><span>功率</span><input id="le-power" type="number" min="0.05" step="0.05"></label>
+            <label class="row"><span>颜色</span><input id="le-color" type="color"></label>
+          </div>
+        </section>
+
+        <section class="panel-block">
+          <h2>检查点复核</h2>
+          <button id="run-checks" class="btn" type="button">按当前参数复核检查点</button>
+          <ul id="check-list" class="check-list"></ul>
+        </section>
+
+        <section class="panel-block">
+          <h2>导入 / 导出</h2>
+          <div class="btn-row">
+            <button id="export-json" class="btn" type="button">导出方案 JSON</button>
+            <button id="export-png" class="btn" type="button">导出预览 PNG</button>
+          </div>
+          <label class="btn file-btn">
+            导入方案 JSON
+            <input id="import-json" type="file" accept=".json,application/json" hidden>
+          </label>
+          <p id="status" class="status" role="status"></p>
+        </section>
+      </aside>
+      <main id="stage">
+        <canvas id="canvas" aria-label="灯光预演画布"></canvas>
+        <div id="probe-card" class="probe-card hidden"></div>
+      </main>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

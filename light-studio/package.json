@@ -1,0 +1,10 @@
+{
+  "name": "gsb2-light-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "demo": "python3 -m http.server 4174"
+  }
+}
