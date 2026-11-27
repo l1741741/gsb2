@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>背景换色报告 · bg-recolor-tool</title>
+<style>
+:root{--bd:#d8dbe2;--mut:#6b7280;--red:#eb4034;--blue:#2e75eb;--amber:#f5b21a;--green:#2ecc71;--cyan:#40e0ff;}
+*{box-sizing:border-box} body{font:14px/1.6 -apple-system,"PingFang SC","Segoe UI",sans-serif;margin:0;background:#f4f5f8;color:#1f2430}
+header{background:#1f2430;color:#fff;padding:20px 28px} header h1{margin:0 0 6px;font-size:20px}
+header .meta{color:#b8bfd0;font-size:13px} header code{color:#cfd8ff}
+.wrap{max-width:1280px;margin:0 auto;padding:20px 28px 80px}
+.cards{display:flex;gap:14px;flex-wrap:wrap;margin:18px 0}
+.card{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:14px 18px;min-width:130px}
+.card .n{font-size:26px;font-weight:700}.card .l{color:var(--mut);font-size:12px}
+.item{background:#fff;border:1px solid var(--bd);border-radius:12px;margin:18px 0;overflow:hidden}
+.item > .hd{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--bd);background:#fafbfd;flex-wrap:wrap}
+.badge{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;color:#fff}
+.badge.ok{background:#1a9e57}.badge.err{background:#d33}
+.item h2{font-size:16px;margin:0}
+.item .bd{padding:16px 18px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+figure{margin:0;border:1px solid var(--bd);border-radius:8px;overflow:hidden;background:#fafafa}
+figure img{display:block;width:100%;height:auto}
+figure figcaption{font-size:12px;color:var(--mut);padding:6px 10px;border-top:1px solid var(--bd);background:#fff}
+table{border-collapse:collapse;font-size:13px;margin:8px 0}
+th,td{border:1px solid var(--bd);padding:4px 10px;text-align:right}
+th:first-child,td:first-child{text-align:left} th{background:#f0f2f7}
+.kv{color:var(--mut);font-size:13px}.kv code{background:#eef1f6;padding:1px 6px;border-radius:4px}
+.warn{background:#fff8e6;border:1px solid #f0d488;border-radius:8px;padding:8px 12px;margin:8px 0;font-size:13px}
+.errbox{background:#fdecec;border:1px solid #f0b4b4;border-radius:8px;padding:10px 14px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin:6px 0 2px;font-size:13px}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.dot{width:13px;height:13px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.25)}
+a{color:#1b5fd0}
+.swatches{display:inline-flex;gap:6px;vertical-align:middle}
+.sw{width:16px;height:16px;border-radius:4px;border:1px solid rgba(0,0,0,.25);display:inline-block}
+</style></head><body>
+<header><h1>背景换色批处理报告</h1>
+<div class="meta">bg-recolor-tool v1.0.0 · 2026-11-27T06:40:44 · numpy 加速：开 · 输出目录 <code>/Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/examples/out-example</code></div></header>
+<div class="wrap">
+<div class="cards">
+<div class="card"><div class="n">2</div><div class="l">图片总数</div></div>
+<div class="card"><div class="n" style="color:#1a9e57">2</div><div class="l">成功</div></div>
+<div class="card"><div class="n" style="color:#d33">0</div><div class="l">隔离 / 失败</div></div>
+<div class="card"><div class="n">222691</div><div class="l">实际变化像素合计</div></div>
+<div class="card"><div class="n">3</div><div class="l">断开同色域合计</div></div>
+</div>
+<div class="legend">
+<span><i class="dot" style="background:var(--red)"></i>实际受影响 CHANGED（红色越深替换越强）</span>
+<span><i class="dot" style="background:var(--blue)"></i>颜色相似但被保护区拦下</span>
+<span><i class="dot" style="background:var(--amber)"></i>相似但与图边/种子不连通（单独记录，未修改）</span>
+<span><i class="dot" style="background:var(--green);border-radius:50%"></i>背景取色点</span>
+<span><i class="dot" style="background:var(--cyan)"></i>保护区边界</span>
+</div>
+
+<section class="item"><div class="hd"><span class="badge ok">OK</span><h2>synthetic_scene</h2>
+<span class="kv">480×360 · 背景 <span class="sw" style="background:#EEECE4"></span>#EEECE4 → 新色 <span class="sw" style="background:#2F6FDB"></span>#2F6FDB · edge/4 邻接 · 容差 90.0 过渡 36.0 · metric redmean</span></div>
+<div class="bd">
+
+<div class="grid4">
+<figure><a href="review/synthetic_scene.compare.png" target="_blank"><img loading="lazy" src="review/synthetic_scene.compare.png" alt="compare"></a><figcaption>原图/新图 × 浅底/深底 2×2 对比（点击看大图）</figcaption></figure>
+<figure><a href="changes/synthetic_scene.change.png" target="_blank"><img loading="lazy" src="changes/synthetic_scene.change.png" alt="change map"></a><figcaption>实际受影响范围 / 保护拦截 / 断开同色记录</figcaption></figure>
+<figure><a href="review/synthetic_scene.light.png" target="_blank"><img loading="lazy" src="review/synthetic_scene.light.png" alt="light"></a><figcaption>新 PNG 置于浅底 #FFFFFF</figcaption></figure>
+<figure><a href="review/synthetic_scene.dark.png" target="_blank"><img loading="lazy" src="review/synthetic_scene.dark.png" alt="dark"></a><figcaption>新 PNG 置于深底 #1A1A1A</figcaption></figure>
+</div>
+<div style="display:flex;gap:26px;flex-wrap:wrap;margin-top:14px">
+<div><table><tr><td>总像素</td><td>172800</td></tr><tr><td>完全透明（不计外观统计）</td><td>846</td></tr><tr><td>半透明像素</td><td>8071</td></tr><tr><td>不透明像素</td><td>163883</td></tr><tr><td>实际变化像素</td><td>108769</td></tr><tr><td>其中半透明边缘变化</td><td>3903</td></tr><tr><td>受保护相似像素</td><td>4712</td></tr><tr><td>断开同色像素 / 域数</td><td>5153 / 3</td></tr><tr><td>可见像素平均 RGB 前→后</td><td>[172.3, 188.19, 185.99] → [53.87, 111.29, 181.98]</td></tr></table></div>
+<div class="kv" style="max-width:420px">
+<p>半透明背景近似边缘带：<b>3903</b> 像素<br>
+合成色平均偏移：浅底 <b>18.57</b>（最大 70.3）／深底 <b>18.62</b>（最大 70.3）</p>
+<p>产物：<a href="processed/synthetic_scene.new.png">新 PNG</a> · <a href="changes/synthetic_scene.change.png">变化区域图</a> · <a href="review/synthetic_scene.light.png">浅底</a> · <a href="review/synthetic_scene.dark.png">深底</a> · <a href="reports/synthetic_scene.json">逐图 JSON</a></p>
+</div></div>
+
+<h3>断开的相似色区域（未修改）</h3>
+<table><tr><th>域 id</th><th>面积</th><th>bbox [x0,y0,x1,y1)</th><th>质心</th><th>触边</th><th>含种子</th></tr>
+<tr><td>2</td><td>441</td><td>[111, 61, 132, 82]</td><td>[121.0, 71.0]</td><td>—</td><td>—</td></tr><tr><td>3</td><td>4712</td><td>[140, 120, 216, 182]</td><td>[177.5, 150.5]</td><td>—</td><td>—</td></tr><tr><td>4</td><td>4712</td><td>[264, 120, 340, 182]</td><td>[301.5, 150.5]</td><td>—</td><td>—</td></tr></table>
+</div></section>
+<section class="item"><div class="hd"><span class="badge ok">OK</span><h2>synthetic_scene_global</h2>
+<span class="kv">480×360 · 背景 <span class="sw" style="background:#EEECE4"></span>#EEECE4 → 新色 <span class="sw" style="background:#7A3FF0"></span>#7A3FF0 · off/4 邻接 · 容差 90.0 过渡 36.0 · metric redmean</span></div>
+<div class="bd">
+
+<div class="grid4">
+<figure><a href="review/synthetic_scene_global.compare.png" target="_blank"><img loading="lazy" src="review/synthetic_scene_global.compare.png" alt="compare"></a><figcaption>原图/新图 × 浅底/深底 2×2 对比（点击看大图）</figcaption></figure>
+<figure><a href="changes/synthetic_scene_global.change.png" target="_blank"><img loading="lazy" src="changes/synthetic_scene_global.change.png" alt="change map"></a><figcaption>实际受影响范围 / 保护拦截 / 断开同色记录</figcaption></figure>
+<figure><a href="review/synthetic_scene_global.light.png" target="_blank"><img loading="lazy" src="review/synthetic_scene_global.light.png" alt="light"></a><figcaption>新 PNG 置于浅底 #FFFFFF</figcaption></figure>
+<figure><a href="review/synthetic_scene_global.dark.png" target="_blank"><img loading="lazy" src="review/synthetic_scene_global.dark.png" alt="dark"></a><figcaption>新 PNG 置于深底 #1A1A1A</figcaption></figure>
+</div>
+<div style="display:flex;gap:26px;flex-wrap:wrap;margin-top:14px">
+<div><table><tr><td>总像素</td><td>172800</td></tr><tr><td>完全透明（不计外观统计）</td><td>846</td></tr><tr><td>半透明像素</td><td>8071</td></tr><tr><td>不透明像素</td><td>163883</td></tr><tr><td>实际变化像素</td><td>113922</td></tr><tr><td>其中半透明边缘变化</td><td>3903</td></tr><tr><td>受保护相似像素</td><td>4712</td></tr><tr><td>断开同色像素 / 域数</td><td>0 / 0</td></tr><tr><td>可见像素平均 RGB 前→后</td><td>[172.3, 188.19, 185.99] → [97.68, 75.84, 195.58]</td></tr></table></div>
+<div class="kv" style="max-width:420px">
+<p>半透明背景近似边缘带：<b>3903</b> 像素<br>
+合成色平均偏移：浅底 <b>18.16</b>（最大 64.8）／深底 <b>18.09</b>（最大 64.8）</p>
+<p>产物：<a href="processed/synthetic_scene_global.new.png">新 PNG</a> · <a href="changes/synthetic_scene_global.change.png">变化区域图</a> · <a href="review/synthetic_scene_global.light.png">浅底</a> · <a href="review/synthetic_scene_global.dark.png">深底</a> · <a href="reports/synthetic_scene_global.json">逐图 JSON</a></p>
+</div></div>
+
+</div></section></div></body></html>

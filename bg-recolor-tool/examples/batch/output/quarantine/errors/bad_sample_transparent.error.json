@@ -1,0 +1,21 @@
+{
+  "id": "bad_sample_transparent",
+  "failed_at": "2026-11-27T06:40:45",
+  "item_config": {
+    "id": "bad_sample_transparent",
+    "path": "inputs/scene_b.png",
+    "sample_points": [
+      [
+        424,
+        42
+      ]
+    ]
+  },
+  "error": {
+    "reason_code": "invalid_sample_transparent",
+    "reason_cn": "取色区域完全透明，无法取色",
+    "message": "取色点 (424,42) 周围 2px 邻域全部透明，无法取得背景色",
+    "traceback_tail": "During handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/bg_recolor/pipeline.py\", line 210, in process_item\n    raise ItemProcessingError(exc.reason_code, str(exc))\nbg_recolor.pipeline.ItemProcessingError: 取色点 (424,42) 周围 2px 邻域全部透明，无法取得背景色"
+  },
+  "quarantined_source": "quarantine/files/bad_sample_transparent__scene_b.png"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "corrupt_file",
+  "failed_at": "2026-11-27T06:40:45",
+  "item_config": {
+    "id": "corrupt_file",
+    "path": "inputs/corrupt.png",
+    "sample_points": [
+      [
+        4,
+        4
+      ]
+    ]
+  },
+  "error": {
+    "reason_code": "unreadable_image",
+    "reason_cn": "坏图 / 无法解码的 PNG",
+    "message": "PngError: 不是合法的 PNG 文件（签名不匹配）: /Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/examples/batch/inputs/corrupt.png",
+    "traceback_tail": "Traceback (most recent call last):\n  File \"/Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/bg_recolor/pipeline.py\", line 187, in process_item\n    raise ItemProcessingError(\n        \"unreadable_image\",\n        \"%s: %s\" % (type(exc).__name__, exc))\nbg_recolor.pipeline.ItemProcessingError: PngError: 不是合法的 PNG 文件（签名不匹配）: /Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/examples/batch/inputs/corrupt.png"
+  },
+  "quarantined_source": "quarantine/files/corrupt_file__corrupt.png"
+}

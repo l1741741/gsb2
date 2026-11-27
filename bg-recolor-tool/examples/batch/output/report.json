@@ -1,0 +1,564 @@
+{
+  "tool": "bg-recolor-tool",
+  "version": "1.0.0",
+  "generated_at": "2026-11-27T06:40:45",
+  "config_path": "examples/batch/batch_config.json",
+  "output_dir": "/Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/examples/batch/output",
+  "engine": {
+    "numpy_accelerated": true
+  },
+  "summary": {
+    "total": 5,
+    "ok": 2,
+    "error": 3,
+    "changed_pixels_total": 217554,
+    "disconnected_components_total": 6,
+    "quarantine_dir": "quarantine/"
+  },
+  "items": [
+    {
+      "id": "scene_a_edge",
+      "source": "inputs/scene_a.png",
+      "status": "ok",
+      "outputs": {
+        "new_png": "processed/scene_a_edge.new.png",
+        "change_map": "changes/scene_a_edge.change.png",
+        "preview_light": "review/scene_a_edge.light.png",
+        "preview_dark": "review/scene_a_edge.dark.png",
+        "compare_sheet": "review/scene_a_edge.compare.png",
+        "item_report": "reports/scene_a_edge.json"
+      },
+      "warnings": [],
+      "source_abs": "/Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/examples/batch/inputs/scene_a.png",
+      "source_bytes": 7829,
+      "source_sha256": "6fd1e32bc4489860515f09ea8b713893600855dd0ace3864614cea29ea1a403c",
+      "image": {
+        "width": 480,
+        "height": 360,
+        "decoded_source": {
+          "bit_depth": 8,
+          "color_type": 6,
+          "interlace": 0,
+          "source_name": "/Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/examples/batch/inputs/scene_a.png"
+        }
+      },
+      "background_color": "#EEECE4",
+      "target_color": "#2F6FDB",
+      "params": {
+        "metric": "redmean",
+        "tolerance": 90.0,
+        "feather": 36.0,
+        "connectivity": "edge",
+        "neighborhood": 4,
+        "sample_radius": 2,
+        "sample_min_alpha": 200,
+        "strict_seed": false,
+        "target_color": "#2F6FDB",
+        "light_color": "#FFFFFF",
+        "dark_color": "#1A1A1A"
+      },
+      "sample_infos": [
+        {
+          "point": [
+            18,
+            18
+          ],
+          "patch_radius": 2,
+          "patch_pixels_used": 25,
+          "patch_visible_pixels": 25,
+          "sampled_color": "#EEECE4"
+        }
+      ],
+      "sample_points": [
+        [
+          18,
+          18
+        ]
+      ],
+      "seed_points": [
+        [
+          18,
+          18
+        ]
+      ],
+      "counts": {
+        "total_pixels": 172800,
+        "visible_pixels": 171954,
+        "fully_transparent_pixels": 846,
+        "semitransparent_pixels": 8071,
+        "opaque_pixels": 163883,
+        "similar_pixels": 118634,
+        "selected_component_count": 1,
+        "similar_component_count": 4,
+        "disconnected_component_count": 3,
+        "disconnected_similar_pixels": 5153,
+        "protected_region_pixels": 6512,
+        "protected_similar_pixels": 4712,
+        "affected_area_pixel_equiv": 108413.2,
+        "affected_pixels_weight_positive": 108769,
+        "affected_opaque_pixels": 104866,
+        "affected_semitransparent_pixels": 3903,
+        "changed_pixels_exact": 108769,
+        "changed_opaque_pixels": 104866,
+        "changed_semitransparent_pixels": 3903,
+        "changed_transparent_violations": 0,
+        "changed_ratio_of_visible": 0.632547,
+        "mean_rgb_visible_before": [
+          172.3,
+          188.19,
+          185.99
+        ],
+        "mean_rgb_visible_after": [
+          53.87,
+          111.29,
+          181.98
+        ]
+      },
+      "edge_shift_on_light": {
+        "edge_band_pixels": 3903,
+        "edge_mean_shift": 18.569,
+        "edge_max_shift": 70.349
+      },
+      "edge_shift_on_dark": {
+        "edge_band_pixels": 3903,
+        "edge_mean_shift": 18.623,
+        "edge_max_shift": 70.349
+      },
+      "components": [
+        {
+          "id": 1,
+          "area": 108769,
+          "bbox_xyxy": [
+            0,
+            0,
+            480,
+            360
+          ],
+          "centroid": [
+            236.52,
+            177.22
+          ],
+          "touches_edge": true,
+          "contains_seed": true,
+          "seed_points": [
+            [
+              18,
+              18
+            ]
+          ]
+        },
+        {
+          "id": 2,
+          "area": 441,
+          "bbox_xyxy": [
+            111,
+            61,
+            132,
+            82
+          ],
+          "centroid": [
+            121.0,
+            71.0
+          ],
+          "touches_edge": false,
+          "contains_seed": false,
+          "seed_points": []
+        },
+        {
+          "id": 3,
+          "area": 4712,
+          "bbox_xyxy": [
+            140,
+            120,
+            216,
+            182
+          ],
+          "centroid": [
+            177.5,
+            150.5
+          ],
+          "touches_edge": false,
+          "contains_seed": false,
+          "seed_points": []
+        },
+        {
+          "id": 4,
+          "area": 4712,
+          "bbox_xyxy": [
+            264,
+            120,
+            340,
+            182
+          ],
+          "centroid": [
+            301.5,
+            150.5
+          ],
+          "touches_edge": false,
+          "contains_seed": false,
+          "seed_points": []
+        }
+      ],
+      "disconnected_components": [
+        {
+          "id": 2,
+          "area": 441,
+          "bbox_xyxy": [
+            111,
+            61,
+            132,
+            82
+          ],
+          "centroid": [
+            121.0,
+            71.0
+          ],
+          "touches_edge": false,
+          "contains_seed": false,
+          "seed_points": []
+        },
+        {
+          "id": 3,
+          "area": 4712,
+          "bbox_xyxy": [
+            140,
+            120,
+            216,
+            182
+          ],
+          "centroid": [
+            177.5,
+            150.5
+          ],
+          "touches_edge": false,
+          "contains_seed": false,
+          "seed_points": []
+        },
+        {
+          "id": 4,
+          "area": 4712,
+          "bbox_xyxy": [
+            264,
+            120,
+            340,
+            182
+          ],
+          "centroid": [
+            301.5,
+            150.5
+          ],
+          "touches_edge": false,
+          "contains_seed": false,
+          "seed_points": []
+        }
+      ],
+      "elapsed_ms": 420.1,
+      "output_sha256": {
+        "new_png": "d59db5292642cd812076f201727f0135b7ab122cb75a757ca66e2d17f1836ea5",
+        "change_map": "147b194d51dedf897caac32d551fd2e031c39e9e01e6619372b929fc011d67a4",
+        "preview_light": "7045d93b368c3ff7a084c95e73786eea81ca0c33544d2394a7b13caa90a26026",
+        "preview_dark": "2d043a961b429008d5d1da0c6817c448e40ee148c351157ae263f9050dda5046",
+        "compare_sheet": "b24fe805ec6f87106f744be40c5c0551abc64a8ddf0b533a6c7283af13c1a432"
+      }
+    },
+    {
+      "id": "scene_b_seeds",
+      "source": "inputs/scene_b.png",
+      "status": "ok",
+      "outputs": {
+        "new_png": "processed/scene_b_seeds.new.png",
+        "change_map": "changes/scene_b_seeds.change.png",
+        "preview_light": "review/scene_b_seeds.light.png",
+        "preview_dark": "review/scene_b_seeds.dark.png",
+        "compare_sheet": "review/scene_b_seeds.compare.png",
+        "item_report": "reports/scene_b_seeds.json"
+      },
+      "warnings": [],
+      "source_abs": "/Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/examples/batch/inputs/scene_b.png",
+      "source_bytes": 7831,
+      "source_sha256": "fb8c381b9110bd64ca5bd4ceff8052e72648cd82f7dc8364e4973308ac73c995",
+      "image": {
+        "width": 480,
+        "height": 360,
+        "decoded_source": {
+          "bit_depth": 8,
+          "color_type": 6,
+          "interlace": 0,
+          "source_name": "/Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/examples/batch/inputs/scene_b.png"
+        }
+      },
+      "background_color": "#E2E8EE",
+      "target_color": "#0E7C66",
+      "params": {
+        "metric": "redmean",
+        "tolerance": 90.0,
+        "feather": 36.0,
+        "connectivity": "seeds",
+        "neighborhood": 4,
+        "sample_radius": 2,
+        "sample_min_alpha": 200,
+        "strict_seed": false,
+        "target_color": "#0E7C66",
+        "light_color": "#FFFFFF",
+        "dark_color": "#1A1A1A"
+      },
+      "sample_infos": [
+        {
+          "point": [
+            18,
+            18
+          ],
+          "patch_radius": 2,
+          "patch_pixels_used": 25,
+          "patch_visible_pixels": 25,
+          "sampled_color": "#E2E8EE"
+        }
+      ],
+      "sample_points": [
+        [
+          18,
+          18
+        ]
+      ],
+      "seed_points": [
+        [
+          18,
+          18
+        ]
+      ],
+      "counts": {
+        "total_pixels": 172800,
+        "visible_pixels": 171954,
+        "fully_transparent_pixels": 846,
+        "semitransparent_pixels": 8071,
+        "opaque_pixels": 163883,
+        "similar_pixels": 118698,
+        "selected_component_count": 1,
+        "similar_component_count": 4,
+        "disconnected_component_count": 3,
+        "disconnected_similar_pixels": 5153,
+        "protected_region_pixels": 6512,
+        "protected_similar_pixels": 4712,
+        "affected_area_pixel_equiv": 108438.51,
+        "affected_pixels_weight_positive": 108785,
+        "affected_opaque_pixels": 104866,
+        "affected_semitransparent_pixels": 3919,
+        "changed_pixels_exact": 108785,
+        "changed_opaque_pixels": 104866,
+        "changed_semitransparent_pixels": 3919,
+        "changed_transparent_violations": 0,
+        "changed_ratio_of_visible": 0.63264,
+        "mean_rgb_visible_before": [
+          174.87,
+          183.38,
+          198.6
+        ],
+        "mean_rgb_visible_after": [
+          42.95,
+          117.13,
+          114.74
+        ]
+      },
+      "edge_shift_on_light": {
+        "edge_band_pixels": 3967,
+        "edge_mean_shift": 19.465,
+        "edge_max_shift": 86.116
+      },
+      "edge_shift_on_dark": {
+        "edge_band_pixels": 3967,
+        "edge_mean_shift": 19.466,
+        "edge_max_shift": 86.116
+      },
+      "components": [
+        {
+          "id": 1,
+          "area": 108833,
+          "bbox_xyxy": [
+            0,
+            0,
+            480,
+            360
+          ],
+          "centroid": [
+            236.54,
+            177.28
+          ],
+          "touches_edge": true,
+          "contains_seed": true,
+          "seed_points": [
+            [
+              18,
+              18
+            ]
+          ]
+        },
+        {
+          "id": 2,
+          "area": 441,
+          "bbox_xyxy": [
+            111,
+            61,
+            132,
+            82
+          ],
+          "centroid": [
+            121.0,
+            71.0
+          ],
+          "touches_edge": false,
+          "contains_seed": false,
+          "seed_points": []
+        },
+        {
+          "id": 3,
+          "area": 4712,
+          "bbox_xyxy": [
+            140,
+            120,
+            216,
+            182
+          ],
+          "centroid": [
+            177.5,
+            150.5
+          ],
+          "touches_edge": false,
+          "contains_seed": false,
+          "seed_points": []
+        },
+        {
+          "id": 4,
+          "area": 4712,
+          "bbox_xyxy": [
+            264,
+            120,
+            340,
+            182
+          ],
+          "centroid": [
+            301.5,
+            150.5
+          ],
+          "touches_edge": false,
+          "contains_seed": false,
+          "seed_points": []
+        }
+      ],
+      "disconnected_components": [
+        {
+          "id": 2,
+          "area": 441,
+          "bbox_xyxy": [
+            111,
+            61,
+            132,
+            82
+          ],
+          "centroid": [
+            121.0,
+            71.0
+          ],
+          "touches_edge": false,
+          "contains_seed": false,
+          "seed_points": []
+        },
+        {
+          "id": 3,
+          "area": 4712,
+          "bbox_xyxy": [
+            140,
+            120,
+            216,
+            182
+          ],
+          "centroid": [
+            177.5,
+            150.5
+          ],
+          "touches_edge": false,
+          "contains_seed": false,
+          "seed_points": []
+        },
+        {
+          "id": 4,
+          "area": 4712,
+          "bbox_xyxy": [
+            264,
+            120,
+            340,
+            182
+          ],
+          "centroid": [
+            301.5,
+            150.5
+          ],
+          "touches_edge": false,
+          "contains_seed": false,
+          "seed_points": []
+        }
+      ],
+      "elapsed_ms": 384.0,
+      "output_sha256": {
+        "new_png": "fe1a232325c84630b43086642a162de34d731d7e4a853b9977607927a40c827f",
+        "change_map": "bd02b5be3b180d64bbc71059130ee82a2b091d219eb4bbd201b67683a4c696c3",
+        "preview_light": "b48cb795032e8b894e657aa2e08792c35dff4bf88e9374375357a025791bb4b2",
+        "preview_dark": "0942d49e26a2abe94e7cca9706038f42339c5f72f645bec4fc36ea06db93e961",
+        "compare_sheet": "eed03a34e84dd873496e73fb7eaaf1608091d0ef2496f6d3c3fbadf7205e766d"
+      }
+    },
+    {
+      "id": "corrupt_file",
+      "source": "inputs/corrupt.png",
+      "status": "error",
+      "outputs": {},
+      "warnings": [],
+      "source_abs": "/Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/examples/batch/inputs/corrupt.png",
+      "source_bytes": 1060,
+      "source_sha256": "6dcc21563bbeb07e7b2443820b8ddd3ad7dada90a809d614b16357c57c9b0277",
+      "error": {
+        "reason_code": "unreadable_image",
+        "reason_cn": "坏图 / 无法解码的 PNG",
+        "message": "PngError: 不是合法的 PNG 文件（签名不匹配）: /Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/examples/batch/inputs/corrupt.png",
+        "traceback_tail": "Traceback (most recent call last):\n  File \"/Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/bg_recolor/pipeline.py\", line 187, in process_item\n    raise ItemProcessingError(\n        \"unreadable_image\",\n        \"%s: %s\" % (type(exc).__name__, exc))\nbg_recolor.pipeline.ItemProcessingError: PngError: 不是合法的 PNG 文件（签名不匹配）: /Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/examples/batch/inputs/corrupt.png"
+      },
+      "quarantined_source": "quarantine/files/corrupt_file__corrupt.png",
+      "error_record": "quarantine/errors/corrupt_file.error.json"
+    },
+    {
+      "id": "bad_sample_oob",
+      "source": "inputs/scene_a.png",
+      "status": "error",
+      "outputs": {},
+      "warnings": [],
+      "source_abs": "/Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/examples/batch/inputs/scene_a.png",
+      "source_bytes": 7829,
+      "source_sha256": "6fd1e32bc4489860515f09ea8b713893600855dd0ace3864614cea29ea1a403c",
+      "error": {
+        "reason_code": "invalid_sample_point",
+        "reason_cn": "无效取色点",
+        "message": "背景取色点 (9999, 18) 超出图片范围 480x360",
+        "traceback_tail": "During handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/bg_recolor/pipeline.py\", line 210, in process_item\n    raise ItemProcessingError(exc.reason_code, str(exc))\nbg_recolor.pipeline.ItemProcessingError: 背景取色点 (9999, 18) 超出图片范围 480x360"
+      },
+      "quarantined_source": "quarantine/files/bad_sample_oob__scene_a.png",
+      "error_record": "quarantine/errors/bad_sample_oob.error.json"
+    },
+    {
+      "id": "bad_sample_transparent",
+      "source": "inputs/scene_b.png",
+      "status": "error",
+      "outputs": {},
+      "warnings": [],
+      "source_abs": "/Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/examples/batch/inputs/scene_b.png",
+      "source_bytes": 7831,
+      "source_sha256": "fb8c381b9110bd64ca5bd4ceff8052e72648cd82f7dc8364e4973308ac73c995",
+      "error": {
+        "reason_code": "invalid_sample_transparent",
+        "reason_cn": "取色区域完全透明，无法取色",
+        "message": "取色点 (424,42) 周围 2px 邻域全部透明，无法取得背景色",
+        "traceback_tail": "During handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/bg_recolor/pipeline.py\", line 210, in process_item\n    raise ItemProcessingError(exc.reason_code, str(exc))\nbg_recolor.pipeline.ItemProcessingError: 取色点 (424,42) 周围 2px 邻域全部透明，无法取得背景色"
+      },
+      "quarantined_source": "quarantine/files/bad_sample_transparent__scene_b.png",
+      "error_record": "quarantine/errors/bad_sample_transparent.error.json"
+    }
+  ]
+}

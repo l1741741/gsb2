@@ -1,0 +1,21 @@
+{
+  "id": "bad_sample_oob",
+  "failed_at": "2026-11-27T06:40:45",
+  "item_config": {
+    "id": "bad_sample_oob",
+    "path": "inputs/scene_a.png",
+    "sample_points": [
+      [
+        9999,
+        18
+      ]
+    ]
+  },
+  "error": {
+    "reason_code": "invalid_sample_point",
+    "reason_cn": "无效取色点",
+    "message": "背景取色点 (9999, 18) 超出图片范围 480x360",
+    "traceback_tail": "During handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/lichao/works/gsb2/tasks/15085/repo/bg-recolor-tool/bg_recolor/pipeline.py\", line 210, in process_item\n    raise ItemProcessingError(exc.reason_code, str(exc))\nbg_recolor.pipeline.ItemProcessingError: 背景取色点 (9999, 18) 超出图片范围 480x360"
+  },
+  "quarantined_source": "quarantine/files/bad_sample_oob__scene_a.png"
+}

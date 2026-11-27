@@ -1,0 +1,67 @@
+{
+  "output_dir": "out-example",
+  "defaults": {
+    "metric": "redmean",
+    "tolerance": 90,
+    "feather": 36,
+    "connectivity": "edge",
+    "neighborhood": 4,
+    "target_color": "#2F6FDB"
+  },
+  "images": [
+    {
+      "id": "synthetic_scene",
+      "path": "synthetic_scene.png",
+      "sample_points": [
+        [
+          18,
+          18
+        ],
+        [
+          462,
+          338
+        ]
+      ],
+      "protect": [
+        {
+          "type": "rect",
+          "xyxy": [
+            258,
+            114,
+            346,
+            188
+          ]
+        }
+      ],
+      "note": "同色产品块 P 应被记录为断开区域；Q 被保护；R 经 1px 细桥连通被替换"
+    },
+    {
+      "id": "synthetic_scene_global",
+      "path": "synthetic_scene.png",
+      "sample_points": [
+        [
+          18,
+          18
+        ],
+        [
+          462,
+          338
+        ]
+      ],
+      "connectivity": "off",
+      "target_color": "#7A3FF0",
+      "protect": [
+        {
+          "type": "rect",
+          "xyxy": [
+            258,
+            114,
+            346,
+            188
+          ]
+        }
+      ],
+      "note": "全局模式：所有相似色都替换，仅保护区 Q 存活"
+    }
+  ]
+}

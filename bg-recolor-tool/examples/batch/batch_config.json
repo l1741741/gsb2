@@ -1,0 +1,93 @@
+{
+  "output_dir": "output",
+  "defaults": {
+    "metric": "redmean",
+    "tolerance": 90,
+    "feather": 36,
+    "neighborhood": 4
+  },
+  "images": [
+    {
+      "id": "scene_a_edge",
+      "path": "inputs/scene_a.png",
+      "sample_points": [
+        [
+          18,
+          18
+        ]
+      ],
+      "connectivity": "edge",
+      "target_color": "#2F6FDB",
+      "protect": [
+        {
+          "type": "rect",
+          "xyxy": [
+            258,
+            114,
+            346,
+            188
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene_b_seeds",
+      "path": "inputs/scene_b.png",
+      "sample_points": [
+        [
+          18,
+          18
+        ]
+      ],
+      "connectivity": "seeds",
+      "seeds": [
+        [
+          18,
+          18
+        ]
+      ],
+      "target_color": "#0E7C66",
+      "protect": [
+        {
+          "type": "rect",
+          "xyxy": [
+            258,
+            114,
+            346,
+            188
+          ]
+        }
+      ]
+    },
+    {
+      "id": "corrupt_file",
+      "path": "inputs/corrupt.png",
+      "sample_points": [
+        [
+          4,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "bad_sample_oob",
+      "path": "inputs/scene_a.png",
+      "sample_points": [
+        [
+          9999,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "bad_sample_transparent",
+      "path": "inputs/scene_b.png",
+      "sample_points": [
+        [
+          424,
+          42
+        ]
+      ]
+    }
+  ]
+}
