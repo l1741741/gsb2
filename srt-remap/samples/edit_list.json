@@ -1,0 +1,44 @@
+{
+  "clips": [
+    {
+      "material": "interview_a",
+      "srt": "subs/interview_a.srt",
+      "src_in": 0,
+      "src_out": 5,
+      "dst_start": 0,
+      "speed": 1.0,
+      "track": 0,
+      "_comment": "正常速度；源字幕 #2 在 src=5s 处被切开，与第二行边界碰齐，不产生重叠"
+    },
+    {
+      "material": "interview_a",
+      "srt": "subs/interview_a.srt",
+      "src_in": 5,
+      "src_out": 10,
+      "dst_start": 5,
+      "speed": 2.0,
+      "track": 0,
+      "_comment": "同一字幕文件复用 + 2 倍速；源 5s 占成片 2.5s，dst 7.5s 处与下一行碰齐"
+    },
+    {
+      "material": "broll_b",
+      "srt": "subs/broll_b.srt",
+      "src_in": 0,
+      "src_out": 6,
+      "dst_start": 8,
+      "speed": 0.5,
+      "track": 0,
+      "_comment": "半速慢放：源 6s 占成片 12s（dst 8-20s）；前面留 0.5s 无字幕空白"
+    },
+    {
+      "material": "interview_a",
+      "srt": "subs/interview_a.srt",
+      "src_in": 8.5,
+      "src_out": 12,
+      "dst_start": 17,
+      "speed": 1.0,
+      "track": 1,
+      "_comment": "高轨 track=1 叠加，dst 17-20.5s 与慢放段重叠 3s：trim 裁掉重叠只保留 20-20.5s；keep 模式整条保留并报告冲突；20.5s 后留空白"
+    }
+  ]
+}
