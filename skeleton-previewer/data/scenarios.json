@@ -1,0 +1,48 @@
+{
+  "scenarios": [
+    {
+      "id": "transition-carry-to-wave",
+      "description": "搬运 → 挥手，0.8s 过渡；左臂旋转跨过半圈（120° → -160°），走最短弧",
+      "loop": true,
+      "program": [
+        { "type": "clip", "clip": "carry", "duration": 1.0, "startAt": 0 },
+        { "type": "transition", "from": "carry", "to": "wave", "duration": 0.8, "fromStartAt": 1.0, "toStartAt": 0 },
+        { "type": "clip", "clip": "wave", "duration": 1.2, "startAt": 0.8 }
+      ],
+      "pins": [],
+      "exportTimes": [1.0, 1.4, 1.8, 2.2]
+    },
+    {
+      "id": "short-transition",
+      "description": "0.2s 短区间过渡，观察快速切换时关节不翻向",
+      "loop": true,
+      "program": [
+        { "type": "clip", "clip": "carry", "duration": 1.0, "startAt": 0 },
+        { "type": "transition", "from": "carry", "to": "wave", "duration": 0.2, "fromStartAt": 1.0, "toStartAt": 0 },
+        { "type": "clip", "clip": "wave", "duration": 1.0, "startAt": 0.2 }
+      ],
+      "pins": [],
+      "exportTimes": [0.95, 1.0, 1.05, 1.1, 1.2]
+    },
+    {
+      "id": "pin-hand-out-of-reach",
+      "description": "左手挂点固定到 (140, -120)，超出臂展 58，显示不可达偏差且骨骼不拉长",
+      "loop": true,
+      "program": [{ "type": "clip", "clip": "carry", "duration": 2.0, "startAt": 0 }],
+      "pins": [
+        { "attachment": "handL", "chain": "armL", "x": 140, "y": -120 }
+      ],
+      "exportTimes": [0, 0.5, 1.0]
+    },
+    {
+      "id": "pin-foot-planted",
+      "description": "走路时左脚在 0.2s–0.7s 固定到地面 (5, 60)，可达，骨骼不拉长",
+      "loop": true,
+      "program": [{ "type": "clip", "clip": "walk", "duration": 1.0, "startAt": 0 }],
+      "pins": [
+        { "attachment": "footL", "chain": "legL", "x": 5, "y": 60, "from": 0.2, "to": 0.7 }
+      ],
+      "exportTimes": [0.1, 0.3, 0.5, 0.8]
+    }
+  ]
+}

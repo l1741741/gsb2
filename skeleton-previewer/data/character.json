@@ -1,0 +1,31 @@
+{
+  "name": "porter",
+  "bones": [
+    { "id": "hips", "parent": null, "x": 0, "y": 0, "rotation": 0, "length": 0 },
+    { "id": "spine", "parent": "hips", "x": 0, "y": 0, "rotation": -90, "length": 45 },
+    { "id": "head", "parent": "spine", "x": 45, "y": 0, "rotation": 0, "length": 15 },
+    { "id": "upperArmL", "parent": "spine", "x": 40, "y": 0, "rotation": 160, "length": 30 },
+    { "id": "foreArmL", "parent": "upperArmL", "x": 30, "y": 0, "rotation": -40, "length": 28 },
+    { "id": "upperArmR", "parent": "spine", "x": 40, "y": 0, "rotation": 20, "length": 30 },
+    { "id": "foreArmR", "parent": "upperArmR", "x": 30, "y": 0, "rotation": 40, "length": 28 },
+    { "id": "thighL", "parent": "hips", "x": 0, "y": 0, "rotation": 90, "length": 34 },
+    { "id": "shinL", "parent": "thighL", "x": 34, "y": 0, "rotation": -10, "length": 32 },
+    { "id": "thighR", "parent": "hips", "x": 0, "y": 0, "rotation": 90, "length": 34 },
+    { "id": "shinR", "parent": "thighR", "x": 34, "y": 0, "rotation": 10, "length": 32 }
+  ],
+  "attachments": [
+    { "id": "handL", "bone": "foreArmL", "x": 28, "y": 0 },
+    { "id": "handR", "bone": "foreArmR", "x": 28, "y": 0 },
+    { "id": "footL", "bone": "shinL", "x": 32, "y": 0 },
+    { "id": "footR", "bone": "shinR", "x": 32, "y": 0 }
+  ],
+  "props": [
+    { "id": "crate", "attachment": "handL", "width": 26, "height": 20, "rotation": 0, "color": "#c9a227" }
+  ],
+  "chains": [
+    { "id": "armL", "bones": ["upperArmL", "foreArmL"], "endAttachment": "handL", "bend": 1 },
+    { "id": "armR", "bones": ["upperArmR", "foreArmR"], "endAttachment": "handR", "bend": 1 },
+    { "id": "legL", "bones": ["thighL", "shinL"], "endAttachment": "footL", "bend": -1 },
+    { "id": "legR", "bones": ["thighR", "shinR"], "endAttachment": "footR", "bend": -1 }
+  ]
+}

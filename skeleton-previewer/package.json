@@ -1,0 +1,16 @@
+{
+  "name": "gsb2-skeleton-previewer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test \"dist/tests/*.test.js\"",
+    "demo": "npm run build && python3 -m http.server 4817",
+    "export": "npm run build && node dist/src/node-export.js"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.11",
+    "typescript": "^5.6.0"
+  }
+}

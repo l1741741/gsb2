@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>骨骼动作预览器</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #1e1e24;
+        color: #ddd;
+        display: flex;
+        gap: 16px;
+        padding: 16px;
+      }
+      canvas {
+        background: #141419;
+        border: 1px solid #333;
+      }
+      .panel {
+        width: 340px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      button,
+      select {
+        background: #2c2c36;
+        color: #ddd;
+        border: 1px solid #444;
+        border-radius: 4px;
+        padding: 4px 10px;
+        cursor: pointer;
+      }
+      input[type='range'] {
+        width: 100%;
+      }
+      pre {
+        background: #141419;
+        border: 1px solid #333;
+        padding: 8px;
+        font-size: 12px;
+        overflow: auto;
+      }
+      #pins label {
+        display: block;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="stage" width="640" height="520"></canvas>
+    <div class="panel">
+      <div class="row">
+        <select id="scenario"></select>
+      </div>
+      <div class="row">
+        <button id="play">播放</button>
+        <button id="prev">◀ 一帧</button>
+        <button id="next">一帧 ▶</button>
+        <label><input id="loop" type="checkbox" /> 循环</label>
+        <select id="speed">
+          <option value="0.25">0.25×</option>
+          <option value="0.5">0.5×</option>
+          <option value="1" selected>1×</option>
+          <option value="2">2×</option>
+        </select>
+      </div>
+      <input id="time" type="range" min="0" max="1" step="0.001" value="0" />
+      <div id="pins"></div>
+      <div class="row">
+        <button id="export">导出关键时间点数值</button>
+      </div>
+      <pre id="hud"></pre>
+    </div>
+    <script>
+      // 场景下拉框由 main.js 填充前的占位逻辑
+    </script>
+    <script type="module">
+      // 填充场景下拉框后再加载主程序，保证时序简单
+      const sel = document.getElementById('scenario');
+      const res = await fetch('data/scenarios.json');
+      const data = await res.json();
+      for (const s of data.scenarios) {
+        const opt = document.createElement('option');
+        opt.value = s.id;
+        opt.textContent = `${s.id} — ${s.description}`;
+        sel.append(opt);
+      }
+      await import('./dist/src/main.js');
+    </script>
+  </body>
+</html>
