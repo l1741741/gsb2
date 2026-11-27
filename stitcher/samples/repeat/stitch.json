@@ -1,0 +1,22 @@
+{
+  "images": [
+    {
+      "file": "tile_a.png",
+      "rough": [
+        0,
+        0
+      ]
+    },
+    {
+      "file": "tile_b.png",
+      "rough": [
+        245,
+        2
+      ]
+    }
+  ],
+  "options": {
+    "search_radius": 60,
+    "checker": 16
+  }
+}

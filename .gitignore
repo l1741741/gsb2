@@ -19,6 +19,9 @@ data.json
 *.sqlite
 *.sqlite3
 tmp/
+stitcher/samples/out/
+stitcher/samples/*/stitch.chosen.json
+stitcher/samples/*/stitch.pinned.json
 
 # ---- 依赖与构建产物 ----
 node_modules/
