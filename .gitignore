@@ -42,3 +42,6 @@ coverage/
 .idea/
 .vscode/
 *.swp
+
+# wavalign 样例产物
+wavalign/examples/demo_out/
