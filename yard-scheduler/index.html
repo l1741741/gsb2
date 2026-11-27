@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>货场调度演练</title>
+<style>
+  :root {
+    --bg: #14171c; --panel: #1d2129; --panel2: #232833; --line: #333a47;
+    --text: #d8dee9; --dim: #8b94a3; --accent: #4fa3ff; --warn: #e5c07b; --bad: #e06c75; --ok: #7ec699;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 "PingFang SC", "Microsoft YaHei", sans-serif; }
+  header { display: flex; align-items: center; gap: 12px; padding: 8px 14px; background: var(--panel); border-bottom: 1px solid var(--line); }
+  header h1 { font-size: 16px; margin: 0; }
+  header select, header button { font: inherit; }
+  #statusBanner { padding: 2px 10px; border-radius: 10px; background: var(--panel2); }
+  #statusBanner.ok { color: var(--ok); } #statusBanner.bad { color: var(--bad); } #statusBanner.warn { color: var(--warn); }
+  #clock { margin-left: auto; color: var(--dim); }
+  main { display: flex; gap: 10px; padding: 10px 14px; align-items: flex-start; }
+  .canvasCol { display: flex; flex-direction: column; gap: 10px; }
+  canvas { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+  aside { width: 360px; display: flex; flex-direction: column; gap: 10px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; }
+  .card h2 { font-size: 13px; margin: 0 0 6px; color: var(--dim); font-weight: 600; }
+  button { background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 4px; padding: 3px 10px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button.primary { border-color: var(--accent); color: var(--accent); }
+  button.danger { border-color: var(--bad); color: var(--bad); }
+  button:disabled { opacity: .4; cursor: default; }
+  input[type=number] { width: 64px; background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 4px; padding: 2px 6px; font: inherit; }
+  select { background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 4px; padding: 2px 6px; font: inherit; }
+  .transport { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .vehicleRow { display: flex; align-items: center; gap: 8px; padding: 3px 4px; border-radius: 4px; cursor: pointer; }
+  .vehicleRow:hover { background: var(--panel2); }
+  .vehicleRow.selected { background: var(--panel2); outline: 1px solid var(--accent); }
+  .chip { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+  .vstate { color: var(--dim); font-size: 12px; }
+  .routeChips { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0; }
+  .routeChips span { background: var(--panel2); border: 1px solid var(--line); border-radius: 3px; padding: 0 6px; font-size: 12px; }
+  .routeChips span.locked { color: var(--dim); border-style: dashed; }
+  .conflictItem { border-left: 3px solid var(--bad); padding: 4px 8px; margin: 4px 0; background: var(--panel2); font-size: 13px; }
+  .conflictItem.future { border-left-color: var(--warn); }
+  .msg { min-height: 18px; color: var(--bad); font-size: 13px; }
+  .hint { color: var(--dim); font-size: 12px; }
+  .row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin: 4px 0; }
+  #scenarioDesc { color: var(--dim); font-size: 12px; max-width: 460px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>货场调度演练</h1>
+  <select id="scenarioSelect"></select>
+  <span id="scenarioDesc"></span>
+  <span id="statusBanner"></span>
+  <span id="clock"></span>
+</header>
+<main>
+  <div class="canvasCol">
+    <canvas id="mapCanvas" width="780" height="440"></canvas>
+    <canvas id="timelineCanvas" width="780" height="230"></canvas>
+  </div>
+  <aside>
+    <div class="card">
+      <h2>运行控制(试跑 / 暂停 / 回退)</h2>
+      <div class="transport">
+        <button id="btnPlay" class="primary">▶ 运行</button>
+        <button id="btnStep">单步</button>
+        <button id="btnRunEnd">跑到结束</button>
+        <button id="btnRunTo">跑到时隙</button><input id="runToTick" type="number" min="0" value="20">
+      </div>
+      <div class="transport" style="margin-top:6px">
+        <button id="btnRewind" class="danger">回退到</button><input id="rewindTick" type="number" min="0" value="0">
+        <button id="btnReset">重置</button>
+        <label class="hint">速度 <input id="speed" type="range" min="1" max="40" value="8" style="width:90px"> <span id="speedLabel">8</span> 时隙/秒</label>
+      </div>
+    </div>
+    <div class="card">
+      <h2>车辆与计划</h2>
+      <div id="vehicleList"></div>
+      <div id="editor"></div>
+      <div class="msg" id="editorMsg"></div>
+    </div>
+    <div class="card">
+      <h2>冲突</h2>
+      <div id="conflictList"><span class="hint">暂无</span></div>
+    </div>
+    <div class="card">
+      <h2>存档(地图 + 计划 + 修改记录,可重放)</h2>
+      <div class="row">
+        <button id="btnSave">保存到浏览器</button>
+        <button id="btnLoad">读取</button>
+        <button id="btnExport">导出 JSON</button>
+        <button id="btnImport">导入 JSON</button>
+        <input id="importFile" type="file" accept=".json" style="display:none">
+      </div>
+      <div class="hint" id="ioMsg"></div>
+    </div>
+  </aside>
+</main>
+<script type="module" src="./dist/src/main.js"></script>
+</body>
+</html>

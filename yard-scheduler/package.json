@@ -1,0 +1,16 @@
+{
+  "name": "yard-scheduler",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "浏览器货场调度演练:用时间表给搬运车分配路段,在截止时刻前把货送到月台",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test \"dist/tests/*.test.js\"",
+    "start": "python3 -m http.server 4399"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}
