@@ -1,0 +1,715 @@
+{
+  "format": "offset-tool/results",
+  "formatVersion": 1,
+  "generatedAt": "2026-01-01T00:00:00.000Z",
+  "input": {
+    "loops": [
+      {
+        "points": [
+          {
+            "x": -65,
+            "y": -25
+          },
+          {
+            "x": -15,
+            "y": -25
+          },
+          {
+            "x": -15,
+            "y": -6
+          },
+          {
+            "x": 15,
+            "y": -6
+          },
+          {
+            "x": 15,
+            "y": -25
+          },
+          {
+            "x": 65,
+            "y": -25
+          },
+          {
+            "x": 65,
+            "y": 25
+          },
+          {
+            "x": 15,
+            "y": 25
+          },
+          {
+            "x": 15,
+            "y": 6
+          },
+          {
+            "x": -15,
+            "y": 6
+          },
+          {
+            "x": -15,
+            "y": 25
+          },
+          {
+            "x": -65,
+            "y": 25
+          }
+        ],
+        "role": "outer"
+      }
+    ],
+    "name": "dumbbell-plate"
+  },
+  "runs": [
+    {
+      "arcTolerance": 0,
+      "cleanTolerance": 0,
+      "components": [
+        [
+          "component-0-L0"
+        ]
+      ],
+      "distance": 0,
+      "empty": false,
+      "join": "miter",
+      "loops": [
+        {
+          "componentId": "component-0",
+          "depth": 0,
+          "id": "component-0-L0",
+          "points": [
+            {
+              "x": -15,
+              "y": -6
+            },
+            {
+              "x": 15,
+              "y": -6
+            },
+            {
+              "x": 15,
+              "y": -25
+            },
+            {
+              "x": 65,
+              "y": -25
+            },
+            {
+              "x": 65,
+              "y": 25
+            },
+            {
+              "x": 15,
+              "y": 25
+            },
+            {
+              "x": 15,
+              "y": 6
+            },
+            {
+              "x": -15,
+              "y": 6
+            },
+            {
+              "x": -15,
+              "y": 25
+            },
+            {
+              "x": -65,
+              "y": 25
+            },
+            {
+              "x": -65,
+              "y": -25
+            },
+            {
+              "x": -15,
+              "y": -25
+            }
+          ],
+          "role": "outer",
+          "signedArea": 5360,
+          "sourceLoops": [
+            0
+          ]
+        }
+      ],
+      "miterLimit": 2,
+      "removedSlivers": [],
+      "stats": {
+        "addedArea": 0,
+        "holeCount": 0,
+        "outerCount": 1,
+        "removedArea": 0,
+        "sliverCount": 0
+      }
+    },
+    {
+      "arcTolerance": 0,
+      "cleanTolerance": 0,
+      "components": [
+        [
+          "component-0-L0"
+        ]
+      ],
+      "distance": -4,
+      "empty": false,
+      "join": "miter",
+      "loops": [
+        {
+          "componentId": "component-0",
+          "depth": 0,
+          "id": "component-0-L0",
+          "points": [
+            {
+              "x": 61,
+              "y": 21
+            },
+            {
+              "x": 19,
+              "y": 21
+            },
+            {
+              "x": 19,
+              "y": 2
+            },
+            {
+              "x": -19,
+              "y": 2
+            },
+            {
+              "x": -19,
+              "y": 21
+            },
+            {
+              "x": -61,
+              "y": 21
+            },
+            {
+              "x": -61,
+              "y": -21
+            },
+            {
+              "x": -19,
+              "y": -21
+            },
+            {
+              "x": -19,
+              "y": -2
+            },
+            {
+              "x": 19,
+              "y": -2
+            },
+            {
+              "x": 19,
+              "y": -21
+            },
+            {
+              "x": 61,
+              "y": -21
+            }
+          ],
+          "role": "outer",
+          "signedArea": 3680,
+          "sourceLoops": [
+            0
+          ]
+        }
+      ],
+      "miterLimit": 2,
+      "removedSlivers": [
+        {
+          "area": 5360,
+          "id": "sliver-0",
+          "kind": "removed",
+          "points": [
+            {
+              "x": -15,
+              "y": -6
+            },
+            {
+              "x": 15,
+              "y": -6
+            },
+            {
+              "x": 15,
+              "y": -25
+            },
+            {
+              "x": 65,
+              "y": -25
+            },
+            {
+              "x": 65,
+              "y": 25
+            },
+            {
+              "x": 15,
+              "y": 25
+            },
+            {
+              "x": 15,
+              "y": 6
+            },
+            {
+              "x": -15,
+              "y": 6
+            },
+            {
+              "x": -15,
+              "y": 25
+            },
+            {
+              "x": -65,
+              "y": 25
+            },
+            {
+              "x": -65,
+              "y": -25
+            },
+            {
+              "x": -15,
+              "y": -25
+            }
+          ]
+        },
+        {
+          "area": 3680,
+          "id": "sliver-1",
+          "kind": "removed",
+          "points": [
+            {
+              "x": -61,
+              "y": -21
+            },
+            {
+              "x": -61,
+              "y": 21
+            },
+            {
+              "x": -19,
+              "y": 21
+            },
+            {
+              "x": -19,
+              "y": 2
+            },
+            {
+              "x": 19,
+              "y": 2
+            },
+            {
+              "x": 19,
+              "y": 21
+            },
+            {
+              "x": 61,
+              "y": 21
+            },
+            {
+              "x": 61,
+              "y": -21
+            },
+            {
+              "x": 19,
+              "y": -21
+            },
+            {
+              "x": 19,
+              "y": -2
+            },
+            {
+              "x": -19,
+              "y": -2
+            },
+            {
+              "x": -19,
+              "y": -21
+            }
+          ]
+        }
+      ],
+      "stats": {
+        "addedArea": 0,
+        "holeCount": 0,
+        "outerCount": 1,
+        "removedArea": 9040,
+        "sliverCount": 2
+      }
+    },
+    {
+      "arcTolerance": 0,
+      "cleanTolerance": 0,
+      "components": [
+        [
+          "component-0-L0"
+        ],
+        [
+          "component-1-L1"
+        ]
+      ],
+      "distance": -7,
+      "empty": false,
+      "join": "miter",
+      "loops": [
+        {
+          "componentId": "component-0",
+          "depth": 0,
+          "id": "component-0-L0",
+          "points": [
+            {
+              "x": 58,
+              "y": -18
+            },
+            {
+              "x": 58,
+              "y": 18
+            },
+            {
+              "x": 22,
+              "y": 18
+            },
+            {
+              "x": 22,
+              "y": -18
+            }
+          ],
+          "role": "outer",
+          "signedArea": 1296,
+          "sourceLoops": [
+            0
+          ]
+        },
+        {
+          "componentId": "component-1",
+          "depth": 0,
+          "id": "component-1-L1",
+          "points": [
+            {
+              "x": -58,
+              "y": 18
+            },
+            {
+              "x": -58,
+              "y": -18
+            },
+            {
+              "x": -22,
+              "y": -18
+            },
+            {
+              "x": -22,
+              "y": 18
+            }
+          ],
+          "role": "outer",
+          "signedArea": 1296,
+          "sourceLoops": [
+            0
+          ]
+        }
+      ],
+      "miterLimit": 2,
+      "removedSlivers": [
+        {
+          "area": 5360,
+          "id": "sliver-0",
+          "kind": "removed",
+          "points": [
+            {
+              "x": -15,
+              "y": -6
+            },
+            {
+              "x": 15,
+              "y": -6
+            },
+            {
+              "x": 15,
+              "y": -25
+            },
+            {
+              "x": 65,
+              "y": -25
+            },
+            {
+              "x": 65,
+              "y": 25
+            },
+            {
+              "x": 15,
+              "y": 25
+            },
+            {
+              "x": 15,
+              "y": 6
+            },
+            {
+              "x": -15,
+              "y": 6
+            },
+            {
+              "x": -15,
+              "y": 25
+            },
+            {
+              "x": -65,
+              "y": 25
+            },
+            {
+              "x": -65,
+              "y": -25
+            },
+            {
+              "x": -15,
+              "y": -25
+            }
+          ]
+        },
+        {
+          "area": 1296,
+          "id": "sliver-1",
+          "kind": "removed",
+          "points": [
+            {
+              "x": -58,
+              "y": -18
+            },
+            {
+              "x": -58,
+              "y": 18
+            },
+            {
+              "x": -22,
+              "y": 18
+            },
+            {
+              "x": -22,
+              "y": -18
+            }
+          ]
+        },
+        {
+          "area": 1296,
+          "id": "sliver-2",
+          "kind": "removed",
+          "points": [
+            {
+              "x": 22,
+              "y": -18
+            },
+            {
+              "x": 22,
+              "y": 18
+            },
+            {
+              "x": 58,
+              "y": 18
+            },
+            {
+              "x": 58,
+              "y": -18
+            }
+          ]
+        }
+      ],
+      "stats": {
+        "addedArea": 0,
+        "holeCount": 0,
+        "outerCount": 2,
+        "removedArea": 7952,
+        "sliverCount": 3
+      }
+    },
+    {
+      "arcTolerance": 0,
+      "cleanTolerance": 0,
+      "components": [
+        [
+          "component-0-L0"
+        ],
+        [
+          "component-1-L1"
+        ]
+      ],
+      "distance": -10,
+      "empty": false,
+      "join": "miter",
+      "loops": [
+        {
+          "componentId": "component-0",
+          "depth": 0,
+          "id": "component-0-L0",
+          "points": [
+            {
+              "x": 55,
+              "y": -15
+            },
+            {
+              "x": 55,
+              "y": 15
+            },
+            {
+              "x": 25,
+              "y": 15
+            },
+            {
+              "x": 25,
+              "y": -15
+            }
+          ],
+          "role": "outer",
+          "signedArea": 900,
+          "sourceLoops": [
+            0
+          ]
+        },
+        {
+          "componentId": "component-1",
+          "depth": 0,
+          "id": "component-1-L1",
+          "points": [
+            {
+              "x": -55,
+              "y": 15
+            },
+            {
+              "x": -55,
+              "y": -15
+            },
+            {
+              "x": -25,
+              "y": -15
+            },
+            {
+              "x": -25,
+              "y": 15
+            }
+          ],
+          "role": "outer",
+          "signedArea": 900,
+          "sourceLoops": [
+            0
+          ]
+        }
+      ],
+      "miterLimit": 2,
+      "removedSlivers": [
+        {
+          "area": 5360,
+          "id": "sliver-0",
+          "kind": "removed",
+          "points": [
+            {
+              "x": -15,
+              "y": -6
+            },
+            {
+              "x": 15,
+              "y": -6
+            },
+            {
+              "x": 15,
+              "y": -25
+            },
+            {
+              "x": 65,
+              "y": -25
+            },
+            {
+              "x": 65,
+              "y": 25
+            },
+            {
+              "x": 15,
+              "y": 25
+            },
+            {
+              "x": 15,
+              "y": 6
+            },
+            {
+              "x": -15,
+              "y": 6
+            },
+            {
+              "x": -15,
+              "y": 25
+            },
+            {
+              "x": -65,
+              "y": 25
+            },
+            {
+              "x": -65,
+              "y": -25
+            },
+            {
+              "x": -15,
+              "y": -25
+            }
+          ]
+        },
+        {
+          "area": 900,
+          "id": "sliver-1",
+          "kind": "removed",
+          "points": [
+            {
+              "x": -55,
+              "y": -15
+            },
+            {
+              "x": -55,
+              "y": 15
+            },
+            {
+              "x": -25,
+              "y": 15
+            },
+            {
+              "x": -25,
+              "y": -15
+            }
+          ]
+        },
+        {
+          "area": 900,
+          "id": "sliver-2",
+          "kind": "removed",
+          "points": [
+            {
+              "x": 25,
+              "y": -15
+            },
+            {
+              "x": 25,
+              "y": 15
+            },
+            {
+              "x": 55,
+              "y": 15
+            },
+            {
+              "x": 55,
+              "y": -15
+            }
+          ]
+        }
+      ],
+      "stats": {
+        "addedArea": 0,
+        "holeCount": 0,
+        "outerCount": 2,
+        "removedArea": 7160,
+        "sliverCount": 3
+      }
+    }
+  ],
+  "validation": {
+    "issueCount": 0,
+    "issues": [],
+    "valid": true
+  }
+}

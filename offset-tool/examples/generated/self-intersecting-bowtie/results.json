@@ -1,0 +1,54 @@
+{
+  "format": "offset-tool/results",
+  "formatVersion": 1,
+  "generatedAt": "2026-01-01T00:00:00.000Z",
+  "input": {
+    "loops": [
+      {
+        "points": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 60,
+            "y": 40
+          },
+          {
+            "x": 60,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 40
+          }
+        ],
+        "role": "outer"
+      }
+    ],
+    "name": "self-intersecting-bowtie"
+  },
+  "runs": [],
+  "validation": {
+    "issueCount": 2,
+    "issues": [
+      {
+        "kind": "degenerate-loop",
+        "loopIndex": 0,
+        "message": "环 #0 的有向面积为 0，形状退化（共线或自覆）"
+      },
+      {
+        "kind": "self-intersection",
+        "loopIndex": 0,
+        "message": "环 #0 在边 #0 与边 #2 处自交，交点 (30.0000, 20.0000)",
+        "point": {
+          "x": 30,
+          "y": 20
+        },
+        "pointIndex": 0,
+        "pointIndex2": 2
+      }
+    ],
+    "valid": false
+  }
+}

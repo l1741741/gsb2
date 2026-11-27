@@ -1,0 +1,3 @@
+self-intersecting-bowtie
+- [degenerate-loop] 环 #0 的有向面积为 0，形状退化（共线或自覆）
+- [self-intersection] 环 #0 在边 #0 与边 #2 处自交，交点 (30.0000, 20.0000)

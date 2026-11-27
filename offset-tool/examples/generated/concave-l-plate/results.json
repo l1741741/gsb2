@@ -1,0 +1,349 @@
+{
+  "format": "offset-tool/results",
+  "formatVersion": 1,
+  "generatedAt": "2026-01-01T00:00:00.000Z",
+  "input": {
+    "loops": [
+      {
+        "points": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 80,
+            "y": 0
+          },
+          {
+            "x": 80,
+            "y": 30
+          },
+          {
+            "x": 30,
+            "y": 30
+          },
+          {
+            "x": 30,
+            "y": 70
+          },
+          {
+            "x": 0,
+            "y": 70
+          }
+        ],
+        "role": "outer"
+      }
+    ],
+    "name": "concave-l-plate"
+  },
+  "runs": [
+    {
+      "arcTolerance": 0,
+      "cleanTolerance": 0,
+      "components": [
+        [
+          "component-0-L0"
+        ]
+      ],
+      "distance": 0,
+      "empty": false,
+      "join": "miter",
+      "loops": [
+        {
+          "componentId": "component-0",
+          "depth": 0,
+          "id": "component-0-L0",
+          "points": [
+            {
+              "x": 80,
+              "y": 30
+            },
+            {
+              "x": 30,
+              "y": 30
+            },
+            {
+              "x": 30,
+              "y": 70
+            },
+            {
+              "x": 0,
+              "y": 70
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 80,
+              "y": 0
+            }
+          ],
+          "role": "outer",
+          "signedArea": 3600,
+          "sourceLoops": [
+            0
+          ]
+        }
+      ],
+      "miterLimit": 2,
+      "removedSlivers": [],
+      "stats": {
+        "addedArea": 0,
+        "holeCount": 0,
+        "outerCount": 1,
+        "removedArea": 0,
+        "sliverCount": 0
+      }
+    },
+    {
+      "arcTolerance": 0,
+      "cleanTolerance": 0,
+      "components": [
+        [
+          "component-0-L0"
+        ]
+      ],
+      "distance": 6,
+      "empty": false,
+      "join": "miter",
+      "loops": [
+        {
+          "componentId": "component-0",
+          "depth": 0,
+          "id": "component-0-L0",
+          "points": [
+            {
+              "x": 86,
+              "y": 36
+            },
+            {
+              "x": 36,
+              "y": 36
+            },
+            {
+              "x": 36,
+              "y": 76
+            },
+            {
+              "x": -6,
+              "y": 76
+            },
+            {
+              "x": -6,
+              "y": -6
+            },
+            {
+              "x": 86,
+              "y": -6
+            }
+          ],
+          "role": "outer",
+          "signedArea": 5544,
+          "sourceLoops": [
+            0
+          ]
+        }
+      ],
+      "miterLimit": 2,
+      "removedSlivers": [
+        {
+          "area": 5544,
+          "id": "sliver-0",
+          "kind": "added",
+          "points": [
+            {
+              "x": 86,
+              "y": 36
+            },
+            {
+              "x": 36,
+              "y": 36
+            },
+            {
+              "x": 36,
+              "y": 76
+            },
+            {
+              "x": -6,
+              "y": 76
+            },
+            {
+              "x": -6,
+              "y": -6
+            },
+            {
+              "x": 86,
+              "y": -6
+            }
+          ]
+        },
+        {
+          "area": 3600,
+          "id": "sliver-1",
+          "kind": "added",
+          "points": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 70
+            },
+            {
+              "x": 30,
+              "y": 70
+            },
+            {
+              "x": 30,
+              "y": 30
+            },
+            {
+              "x": 80,
+              "y": 30
+            },
+            {
+              "x": 80,
+              "y": 0
+            }
+          ]
+        }
+      ],
+      "stats": {
+        "addedArea": 9144,
+        "holeCount": 0,
+        "outerCount": 1,
+        "removedArea": 0,
+        "sliverCount": 2
+      }
+    },
+    {
+      "arcTolerance": 0,
+      "cleanTolerance": 0,
+      "components": [
+        [
+          "component-0-L0"
+        ]
+      ],
+      "distance": 14,
+      "empty": false,
+      "join": "miter",
+      "loops": [
+        {
+          "componentId": "component-0",
+          "depth": 0,
+          "id": "component-0-L0",
+          "points": [
+            {
+              "x": 94,
+              "y": 44
+            },
+            {
+              "x": 44,
+              "y": 44
+            },
+            {
+              "x": 44,
+              "y": 84
+            },
+            {
+              "x": -14,
+              "y": 84
+            },
+            {
+              "x": -14,
+              "y": -14
+            },
+            {
+              "x": 94,
+              "y": -14
+            }
+          ],
+          "role": "outer",
+          "signedArea": 8584,
+          "sourceLoops": [
+            0
+          ]
+        }
+      ],
+      "miterLimit": 2,
+      "removedSlivers": [
+        {
+          "area": 8584,
+          "id": "sliver-0",
+          "kind": "added",
+          "points": [
+            {
+              "x": 94,
+              "y": 44
+            },
+            {
+              "x": 44,
+              "y": 44
+            },
+            {
+              "x": 44,
+              "y": 84
+            },
+            {
+              "x": -14,
+              "y": 84
+            },
+            {
+              "x": -14,
+              "y": -14
+            },
+            {
+              "x": 94,
+              "y": -14
+            }
+          ]
+        },
+        {
+          "area": 3600,
+          "id": "sliver-1",
+          "kind": "added",
+          "points": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 70
+            },
+            {
+              "x": 30,
+              "y": 70
+            },
+            {
+              "x": 30,
+              "y": 30
+            },
+            {
+              "x": 80,
+              "y": 30
+            },
+            {
+              "x": 80,
+              "y": 0
+            }
+          ]
+        }
+      ],
+      "stats": {
+        "addedArea": 12184,
+        "holeCount": 0,
+        "outerCount": 1,
+        "removedArea": 0,
+        "sliverCount": 2
+      }
+    }
+  ],
+  "validation": {
+    "issueCount": 0,
+    "issues": [],
+    "valid": true
+  }
+}

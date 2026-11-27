@@ -1,0 +1,22 @@
+{
+  "name": "offset-tool",
+  "version": "1.0.0",
+  "private": true,
+  "description": "本地二维闭合轮廓外扩/内缩预览与导出工具（含孔洞、连通关系与自交诊断）",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "tsc -p tsconfig.json && node --test 'dist/tests/**/*.test.js'",
+    "examples": "tsc -p tsconfig.json && node dist/cli/generate-examples.js",
+    "demo": "python3 -m http.server 4175"
+  },
+  "dependencies": {
+    "clipper-lib": "6.4.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.12.0"
+  }
+}

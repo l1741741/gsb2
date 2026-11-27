@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>二维轮廓外扩/内缩预览工具</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font: 13px/1.5 -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: #111827; display: grid; grid-template-columns: 300px 1fr 320px; gap: 12px; padding: 12px;
+    }
+    h1 { font-size: 15px; margin: 0 0 8px; }
+    h2 { font-size: 13px; margin: 14px 0 6px; color: #374151; }
+    .panel { border: 1px solid #d1d5db; border-radius: 8px; padding: 10px; background: #fff; }
+    label { display: block; margin: 6px 0; }
+    input[type="range"] { width: 100%; }
+    select, input[type="number"], textarea { width: 100%; font: inherit; }
+    textarea { height: 120px; font-family: ui-monospace, monospace; font-size: 11px; }
+    button { margin: 3px 2px 3px 0; padding: 5px 10px; border: 1px solid #9ca3af; border-radius: 6px; background: #f9fafb; cursor: pointer; }
+    button:hover { background: #eef2ff; }
+    canvas { border: 1px solid #d1d5db; border-radius: 8px; background: #fff; width: 100%; max-width: 760px; }
+    .err { color: #b91c1c; font-weight: 600; }
+    .ok { color: #047857; font-weight: 600; }
+    ul { margin: 6px 0; padding-left: 18px; }
+    code { background: #f3f4f6; padding: 1px 4px; border-radius: 4px; }
+    .checks label { display: flex; align-items: center; gap: 6px; }
+    .legend span { display: inline-block; width: 12px; height: 12px; margin-right: 4px; vertical-align: middle; border-radius: 2px; }
+  </style>
+</head>
+<body>
+  <!-- 先以经典脚本加载 Clipper（UMD 浏览器分支挂到全局 self.ClipperLib） -->
+  <script src="../vendor/clipper-6.4.2.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "clipper-lib": "./clipper-browser-shim.mjs"
+    }
+  }
+  </script>
+
+  <div class="panel">
+    <h1>参数</h1>
+    <label>示例
+      <select id="example"></select>
+    </label>
+
+    <h2>偏移</h2>
+    <label>距离（正=外扩，负=内缩）
+      <input type="range" id="distance" min="-30" max="30" step="0.5" value="0" />
+      <b id="distance-val">0</b>
+    </label>
+    <label>角部外观
+      <select id="join">
+        <option value="miter">miter 尖角（斜接）</option>
+        <option value="round">round 圆角</option>
+        <option value="square">square 方角</option>
+      </select>
+    </label>
+    <label>斜接限制 miterLimit <input type="number" id="miter" value="2" step="0.1" /></label>
+    <label>圆弧容差 arcTolerance <input type="number" id="arc" value="0" step="0.01" /></label>
+
+    <h2>批处理距离（逗号分隔）</h2>
+    <input type="text" id="batch" value="0,-2,-4,-8" />
+    <button id="btn-batch-png">导出本组 PNG</button>
+    <button id="btn-json">导出稳定 JSON</button>
+
+    <h2>历史</h2>
+    <button id="btn-undo">撤销 (⌘Z)</button>
+    <button id="btn-redo">重做 (⌘⇧Z)</button>
+
+    <h2>显示</h2>
+    <div class="checks">
+      <label><input type="checkbox" id="showOriginal" checked />原始轮廓/方向</label>
+      <label><input type="checkbox" id="showResult" checked />偏移结果</label>
+      <label><input type="checkbox" id="showSlivers" checked />删除/新增细片</label>
+      <label><input type="checkbox" id="showIssues" checked />自交定位标记</label>
+      <label><input type="checkbox" id="showLabels" checked />标签</label>
+      <label><input type="checkbox" id="showOrientation" checked />方向箭头</label>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h1>预览</h1>
+    <canvas id="stage" width="720" height="720"></canvas>
+    <div class="legend" style="margin-top:8px">
+      <span style="background:#374151"></span>原始外环
+      <span style="background:#9ca3af"></span>原始孔
+      <span style="background:#1d4ed8"></span>结果外环
+      <span style="background:#0891b2"></span>结果孔
+      <span style="background:rgba(220,38,38,.5)"></span>删除细片
+      <span style="background:rgba(5,150,105,.5)"></span>新增材料
+      <span style="background:#dc2626"></span>自交点
+    </div>
+  </div>
+
+  <div class="panel">
+    <h1>连通关系与诊断</h1>
+    <div id="report"></div>
+
+    <h2>载入自定义轮廓 JSON</h2>
+    <textarea id="json-input" spellcheck="false"></textarea>
+    <button id="btn-load-json">载入并重算</button>
+    <button id="btn-png">导出当前 PNG</button>
+    <p style="color:#6b7280">
+      格式：<code>{"name":"...","loops":[[{"x":0,"y":0}, ...]]}</code>。
+      外环逆时针、孔洞顺时针，或交由工具按包含关系自动判定。
+    </p>
+  </div>
+
+  <script type="module" src="../dist/cli/app.js"></script>
+</body>
+</html>
