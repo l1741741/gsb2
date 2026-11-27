@@ -1,0 +1,12 @@
+{
+  "name": "page-corrector",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "离线批量档案页四角校正 / 统一纸面坐标导出工具（浏览器 Canvas，零依赖）",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "demo": "python3 -m http.server 4180",
+    "smoke": "node scripts/browser-smoke.mjs"
+  }
+}

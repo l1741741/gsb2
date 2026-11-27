@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>档案整页校正工具 · 四角框选 / 统一纸面坐标 / 批量导出</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">▱</span>
+        <div>
+          <h1>档案整页校正工具</h1>
+          <p class="subtitle">框四角 → 透视校正到统一纸面比例 → 保留/遮挡标注 → 逐页导出 PNG 与坐标转换信息 · 纯浏览器离线运行</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button id="addFilesBtn" class="btn primary">＋ 添加图片</button>
+        <input id="fileInput" type="file" accept="image/*" multiple hidden>
+        <div class="dropdown">
+          <button id="fixtureMenuBtn" class="btn">生成核对示例 ▾</button>
+          <div class="dropdown-menu" id="fixtureMenu">
+            <button data-fixture="grid-oblique">斜拍网格页</button>
+            <button data-fixture="inverted">倒转页（180°）</button>
+            <button data-fixture="hard-edge">边缘难辨页</button>
+            <button id="addAllFixturesBtn" class="sep">一次加入三种示例</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="steps">
+      <ol>
+        <li><b>框四角</b>：在左图拖动 1/2/3/4 角，交叉或几乎重合会被拒绝并提示该调哪个角</li>
+        <li><b>定模板</b>：选纸张比例与输出宽度，存为全批模板；个别页可另存覆盖，两者独立保存</li>
+        <li><b>画区域</b>：在纸面结果上拖出保留区/遮挡区，左图同步投影；改四角后可校验坐标仍正确</li>
+        <li><b>批量导出</b>：逐页生成 PNG + .transform.json，可取消后续页，成功页可直接采用/下载</li>
+      </ol>
+    </section>
+
+    <div class="layout">
+      <aside class="sidebar pages-panel">
+        <div class="panel-head">
+          <h2>页面批次 <span id="pageCount" class="count">0</span></h2>
+          <button id="clearPagesBtn" class="btn tiny ghost" title="清空全部页面">清空</button>
+        </div>
+        <ul id="pageList" class="page-list">
+          <li class="empty-tip">还没有图片。<br>点「添加图片」或「生成核对示例」开始。</li>
+        </ul>
+        <div class="sidebar-foot">
+          <button id="addFilesBtn2" class="btn block">＋ 添加图片</button>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <section class="canvas-grid">
+          <div class="canvas-card">
+            <div class="card-head">
+              <h3>① 原图 / 拖动四角</h3>
+              <span id="sourceSize" class="meta"></span>
+              <label class="mini-check"><input type="checkbox" id="truthToggle" checked> 显示真值/核对点</label>
+            </div>
+            <div class="canvas-wrap" id="sourceWrap">
+              <canvas id="sourceCanvas"></canvas>
+              <div id="sourceHint" class="hint-bar info">拖动白色控制柄框住档案四角（顺序：左上 → 右上 → 右下 → 左下）</div>
+            </div>
+            <div class="readout" id="sourceReadout">源图坐标：—</div>
+          </div>
+
+          <div class="canvas-card">
+            <div class="card-head wrap">
+              <h3>② 统一纸面结果</h3>
+              <span id="paperSize" class="meta"></span>
+              <div class="tool-group" role="group" aria-label="区域工具">
+                <button class="btn tiny" data-tool="keep">▭ 保留区</button>
+                <button class="btn tiny danger-outline" data-tool="mask">▭ 遮挡区</button>
+                <button class="btn tiny active" data-tool="pan">↖ 浏览/选择</button>
+              </div>
+            </div>
+            <div class="canvas-wrap paper-wrap">
+              <canvas id="paperCanvas" width="760" height="1075"></canvas>
+            </div>
+            <div class="readout" id="paperReadout">纸面坐标：—</div>
+          </div>
+        </section>
+
+        <section id="progressSection" class="progress-section hidden">
+          <div class="progress-head">
+            <span id="progressLabel">准备中…</span>
+            <button id="cancelBatchBtn" class="btn tiny danger">取消后续页</button>
+          </div>
+          <div class="progress-track"><div id="progressFill" class="progress-fill" style="width:0%"></div></div>
+          <div id="batchSummary" class="batch-summary"></div>
+        </section>
+      </main>
+
+      <aside class="inspector">
+        <section class="insp-card">
+          <div class="mode-row">
+            <span id="modeBadge" class="badge template">跟随全批模板</span>
+            <span id="dirtyBadge" class="badge dirty hidden">有未保存调整</span>
+          </div>
+          <div class="btn-col">
+            <button id="saveTemplateBtn" class="btn primary">保存为全批模板</button>
+            <button id="saveOverrideBtn" class="btn">另存为本页覆盖</button>
+            <div class="btn-row">
+              <button id="resetDraftBtn" class="btn tiny ghost">还原当前设定</button>
+              <button id="clearOverrideBtn" class="btn tiny danger-ghost hidden">清除本页覆盖</button>
+            </div>
+            <button id="applyTruthBtn" class="btn tiny info hidden">应用示例真值四角（核对用）</button>
+          </div>
+        </section>
+
+        <section class="insp-card">
+          <h4>纸张比例与输出</h4>
+          <label class="field">
+            <span>纸张比例</span>
+            <select id="ratioSelect"></select>
+          </label>
+          <div id="ratioCustomFields" class="field-row hidden">
+            <label class="field"><span>宽比例</span><input id="ratioWInput" type="number" min="1" step="1"></label>
+            <label class="field"><span>高比例</span><input id="ratioHInput" type="number" min="1" step="1"></label>
+            <button id="ratioAutoBtn" class="btn tiny" title="按四角平均边长估算">按四角估算</button>
+          </div>
+          <label class="field">
+            <span>导出宽度 px（高度按比例）</span>
+            <input id="outputWidthInput" type="number" min="200" max="8000" step="10">
+          </label>
+          <label class="field">
+            <span>遮挡区填充色</span>
+            <input id="maskColorInput" type="color">
+          </label>
+        </section>
+
+        <section class="insp-card">
+          <h4>保留区 / 遮挡区</h4>
+          <p class="tip">选择上方工具后，在纸面图上拖框；区域以纸面归一化坐标保存，改四角不会移动纸面位置。</p>
+          <ul id="regionList" class="region-list"></ul>
+          <div class="btn-row">
+            <button id="verifyRegionsBtn" class="btn tiny">校验区域坐标映射</button>
+          </div>
+          <div id="regionVerifyResult" class="verify-result"></div>
+        </section>
+
+        <section id="fixtureCard" class="insp-card hidden">
+          <h4>示例核对坐标</h4>
+          <p id="fixtureDesc" class="tip"></p>
+          <div id="precisionSummary" class="precision"></div>
+          <div class="table-scroll">
+            <table class="cp-table">
+              <thead><tr><th>#</th><th>位置</th><th>纸面 (u,v)</th><th>约 mm</th><th>偏差</th></tr></thead>
+              <tbody id="checkpointTableBody"></tbody>
+            </table>
+          </div>
+          <button id="downloadCheckpointsBtn" class="btn tiny block">下载本页核对坐标 JSON</button>
+        </section>
+
+        <section class="insp-card">
+          <h4>本页导出</h4>
+          <div class="btn-col">
+            <button id="exportCurrentBtn" class="btn primary block">导出本页 PNG + 转换信息</button>
+            <div class="btn-row">
+              <button id="downloadPngBtn" class="btn tiny" disabled>下载 PNG</button>
+              <button id="downloadJsonBtn" class="btn tiny" disabled>下载 .json</button>
+              <button id="adoptBtn" class="btn tiny success" disabled>✓ 采用此结果</button>
+            </div>
+            <div id="currentResult" class="result-meta">尚未导出。</div>
+          </div>
+        </section>
+
+        <section class="insp-card">
+          <h4>批量导出</h4>
+          <button id="pickDirBtn" class="btn block">选择输出文件夹（Chrome/Edge，可选）</button>
+          <div id="dirName" class="meta"></div>
+          <button id="batchExportBtn" class="btn primary block">批量处理并逐页导出</button>
+          <button id="batchDownloadAllBtn" class="btn block">依次下载全部成功页 PNG+JSON</button>
+          <p class="tip">大图逐页处理；处理中可随时「取消后续页」，已成功的页保留结果并可直接采用或下载。相同文件与设定的成功结果会缓存在本机，再次载入可直接采用。</p>
+        </section>
+
+        <section class="insp-card">
+          <h4>设定的独立保存 / 交换</h4>
+          <div class="btn-row wrap">
+            <button id="exportTemplateBtn" class="btn tiny">导出全批模板</button>
+            <button id="importTemplateBtn" class="btn tiny">导入模板</button>
+            <input id="templateImportInput" type="file" accept="application/json,.json" hidden>
+          </div>
+          <div class="btn-row wrap">
+            <button id="exportOverridesBtn" class="btn tiny">导出全部单页覆盖</button>
+            <button id="importOverridesBtn" class="btn tiny">导入覆盖</button>
+            <input id="overridesImportInput" type="file" accept="application/json,.json" hidden>
+          </div>
+          <p class="tip">模板与覆盖使用不同的浏览器存储键（<code>page-corrector:template:v1</code> / <code>…:overrides:v1</code>），清除覆盖不会影响全批模板。</p>
+        </section>
+      </aside>
+    </div>
+
+    <div id="toastStack" class="toast-stack"></div>
+
+    <div id="modalBackdrop" class="modal-backdrop hidden">
+      <div class="modal" role="dialog" aria-modal="true">
+        <h3 id="modalTitle"></h3>
+        <p id="modalMessage"></p>
+        <div id="modalActions" class="modal-actions"></div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/ui/app.js"></script>
+  </body>
+</html>
