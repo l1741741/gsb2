@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>纸模折叠展开预览</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: ui-sans-serif, system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+        --bg: #0f1722;
+        --panel: #182433;
+        --line: #2c3e52;
+        --text: #e6eef6;
+        --muted: #93a6b8;
+        --cross: #ff5d5d;
+        --touch: #8be28b;
+        --accent: #7cc4ff;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--text); }
+      header { padding: 14px 20px 6px; }
+      h1 { margin: 0; font-size: 18px; font-weight: 650; }
+      header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 340px;
+        gap: 14px;
+        padding: 12px 20px 24px;
+      }
+      .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+      button, .file-button {
+        background: #22344a; color: var(--text); border: 1px solid var(--line);
+        border-radius: 8px; padding: 6px 12px; font-size: 13px; cursor: pointer;
+      }
+      button:hover, .file-button:hover { border-color: var(--accent); }
+      .file-button input { display: none; }
+      canvas {
+        display: block; width: 100%; height: auto;
+        border: 1px solid var(--line); border-radius: 12px; background: #0c1520;
+        touch-action: none;
+      }
+      .controls { margin-top: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+      .slider-row { display: flex; align-items: center; gap: 12px; }
+      .slider-wrap { position: relative; flex: 1; }
+      input[type="range"] { width: 100%; }
+      #first-cross-marker {
+        position: absolute; top: -7px; width: 3px; height: 18px;
+        background: var(--cross); border-radius: 2px; pointer-events: none;
+      }
+      #progress-label { font-variant-numeric: tabular-nums; min-width: 56px; text-align: right; }
+      .control-row { display: flex; gap: 14px; align-items: center; margin-top: 10px; font-size: 13px; color: var(--muted); }
+      aside { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+      .panel {
+        background: var(--panel); border: 1px solid var(--line);
+        border-radius: 12px; padding: 12px 14px;
+      }
+      .panel h2 { margin: 0 0 8px; font-size: 14px; font-weight: 650; }
+      .status { border-radius: 10px; padding: 10px 12px; font-size: 13px; margin-bottom: 10px; line-height: 1.55; }
+      .status.ok { background: rgba(124, 196, 255, 0.08); border: 1px solid rgba(124, 196, 255, 0.35); }
+      .status.warn { background: rgba(255, 209, 102, 0.08); border: 1px solid rgba(255, 209, 102, 0.4); }
+      .status.error { background: rgba(255, 93, 93, 0.1); border: 1px solid rgba(255, 93, 93, 0.45); }
+      .error-list { margin: 8px 0 0; padding-left: 18px; }
+      .error-list li { margin-bottom: 6px; }
+      .path { color: #e8b4b4; font-size: 12px; }
+      code { background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+      .summary { font-size: 13px; margin-bottom: 6px; }
+      .first-cross { font-size: 12.5px; color: var(--muted); margin-bottom: 8px; }
+      .cross-text { color: var(--cross); }
+      .touch-text { color: var(--touch); }
+      .ok-text { color: var(--touch); }
+      .muted { color: var(--muted); font-size: 12.5px; }
+      .small { font-size: 11.5px; margin-top: 2px; }
+      .contact-list, .seam-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+      .contact {
+        display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+        border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px;
+        font-size: 12.5px; cursor: pointer;
+      }
+      .contact:hover { border-color: var(--accent); }
+      .contact.selected { outline: 2px solid var(--accent); }
+      .contact.cross { border-left: 4px solid var(--cross); }
+      .contact.touch { border-left: 4px solid var(--touch); }
+      .badge {
+        font-size: 11px; padding: 2px 7px; border-radius: 999px; font-weight: 650;
+      }
+      .badge.cross { background: rgba(255, 93, 93, 0.18); color: var(--cross); }
+      .badge.touch { background: rgba(139, 226, 139, 0.16); color: var(--touch); }
+      .seam-list li { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 4px; }
+      .seam-list li.open { border-left: 4px solid var(--cross); }
+      .seam-list li.closed { border-left: 4px solid var(--touch); }
+      .legend { display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-top: 8px; }
+      .legend span::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; }
+      .legend .l-cross::before { background: var(--cross); }
+      .legend .l-touch::before { background: var(--touch); }
+      .legend .l-crease::before { background: #ffd166; }
+      .legend .l-seam::before { background: #c792ea; }
+      @media (max-width: 980px) { .layout { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>纸模折叠展开预览</h1>
+      <p>平面多边形纸模 · 拖动进度查看折叠过程 · 拖拽画面旋转视角，滚轮缩放，点击面选中</p>
+    </header>
+    <div class="layout">
+      <section>
+        <div class="toolbar">
+          <button data-sample="tube">正常合拢样例</button>
+          <button data-sample="crossing">互穿样例</button>
+          <button data-sample="invalid-ring">坏样例：折缝环</button>
+          <button data-sample="invalid-duplicate-id">坏样例：重复编号</button>
+          <button data-sample="invalid-edge">坏样例：无效共享边</button>
+          <label class="file-button">
+            导入本地 JSON
+            <input id="file-input" type="file" accept=".json,application/json">
+          </label>
+        </div>
+        <div id="status" class="status ok">正在载入样例…</div>
+        <canvas id="view" width="920" height="600" aria-label="纸模三维折叠预览"></canvas>
+        <div class="controls">
+          <div class="slider-row">
+            <strong style="font-size:13px;">折叠进度</strong>
+            <div class="slider-wrap">
+              <div id="first-cross-marker" style="display:none"></div>
+              <input id="progress" type="range" min="0" max="1" step="0.001" value="0">
+            </div>
+            <span id="progress-label">0.0%</span>
+          </div>
+          <div class="control-row">
+            <label><input type="checkbox" id="filter-cross"> 只突出互穿面（其余淡化）</label>
+            <button id="reset-view" type="button">重置视角</button>
+          </div>
+          <div class="legend">
+            <span class="l-cross">互穿（真正穿过面内部）</span>
+            <span class="l-touch">贴合（仅边界/顶点接触）</span>
+            <span class="l-crease">折缝（正常邻接）</span>
+            <span class="l-seam">目标接缝</span>
+          </div>
+        </div>
+      </section>
+      <aside>
+        <div class="panel">
+          <h2>面接触检测</h2>
+          <div id="contact-panel"><p class="muted">等待模型…</p></div>
+        </div>
+        <div class="panel">
+          <h2>选中的面</h2>
+          <div id="selection-panel"><p class="muted">点击画布中的面或下方接触条目进行选中。</p></div>
+        </div>
+        <div class="panel">
+          <h2>目标接缝合拢度</h2>
+          <div id="seam-panel"><p class="muted">等待模型…</p></div>
+        </div>
+      </aside>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

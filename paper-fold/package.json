@@ -1,0 +1,11 @@
+{
+  "name": "paper-fold-preview",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "平面多边形纸模的折叠展开预览、穿插检测与接缝合拢度量（零依赖，本地浏览器工具）",
+  "scripts": {
+    "test": "node --test",
+    "demo": "python3 -m http.server 4174"
+  }
+}
