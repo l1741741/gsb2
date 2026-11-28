@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>疏散路线矢量排版工具</title>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; display: flex; flex-direction: column; height: 100vh; }
+  #toolbar { display: flex; gap: 8px; align-items: center; padding: 8px 12px; background: #26313d; color: #fff; flex-wrap: wrap; }
+  #toolbar button, #toolbar label.btn { background: #3d4f61; color: #fff; border: 0; border-radius: 4px; padding: 5px 12px; cursor: pointer; font-size: 13px; }
+  #toolbar button:hover, #toolbar label.btn:hover { background: #4d637a; }
+  #toolbar button.active { background: #1f6fd6; }
+  #toolbar .spacer { flex: 1; }
+  #fileInput { display: none; }
+  #main { flex: 1; display: flex; min-height: 0; }
+  #canvasWrap { flex: 1; overflow: hidden; background: #fafaf7; cursor: grab; }
+  #canvasWrap.dragging { cursor: grabbing; }
+  #canvasWrap svg { display: block; }
+  #errors { width: 320px; overflow-y: auto; background: #fff8f0; border-left: 1px solid #e5d9c5; padding: 10px 14px; font-size: 13px; }
+  #errors h2 { font-size: 14px; margin: 4px 0 8px; color: #8a4b00; }
+  #errors li { margin-bottom: 6px; line-height: 1.4; }
+  #errors .ok { color: #1a9e4b; }
+  #errors .tag { display: inline-block; background: #f0e2c8; border-radius: 3px; padding: 0 4px; margin-right: 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+  <div id="toolbar">
+    <span id="floorTabs"></span>
+    <span class="spacer"></span>
+    <button id="fitBtn">适应视图</button>
+    <button id="exportBtn">导出当前层 SVG</button>
+    <label class="btn" for="fileInput">打开本地 JSON…</label>
+    <input id="fileInput" type="file" accept=".json,application/json">
+    <button id="demoBtn">载入示范数据</button>
+  </div>
+  <div id="main">
+    <div id="canvasWrap"></div>
+    <div id="errors"></div>
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

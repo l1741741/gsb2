@@ -1,0 +1,52 @@
+{
+  "schema": "evac-plan/1",
+  "floors": [
+    { "id": "F1", "name": "一层", "level": 1 },
+    { "id": "F2", "name": "二层", "level": 2 }
+  ],
+  "nodes": [
+    { "id": "R-101", "floor": "F1", "kind": "room", "x": 60, "y": 300, "label": "展厅" },
+    { "id": "R-102", "floor": "F1", "kind": "room", "x": 180, "y": 430, "label": "办公区" },
+    { "id": "A1", "floor": "F1", "kind": "waypoint", "x": 180, "y": 300 },
+    { "id": "B1", "floor": "F1", "kind": "waypoint", "x": 330, "y": 300 },
+    { "id": "C1", "floor": "F1", "kind": "waypoint", "x": 490, "y": 300 },
+    { "id": "E1", "floor": "F1", "kind": "waypoint", "x": 330, "y": 160 },
+    { "id": "D-N1", "floor": "F1", "kind": "exit", "x": 330, "y": 60, "label": "北门" },
+    { "id": "S1-F1", "floor": "F1", "kind": "stair", "x": 650, "y": 300 },
+    { "id": "S2-F1", "floor": "F1", "kind": "stair", "x": 520, "y": 520 },
+
+    { "id": "S1-F2", "floor": "F2", "kind": "stair", "x": 650, "y": 300 },
+    { "id": "S2-F2", "floor": "F2", "kind": "stair", "x": 520, "y": 520 },
+    { "id": "C2", "floor": "F2", "kind": "waypoint", "x": 480, "y": 300 },
+    { "id": "B2", "floor": "F2", "kind": "waypoint", "x": 480, "y": 440 },
+    { "id": "D-E2", "floor": "F2", "kind": "exit", "x": 260, "y": 300, "label": "二层东门" },
+    { "id": "D-W2", "floor": "F2", "kind": "exit", "x": 260, "y": 440, "label": "二层西门" }
+  ],
+  "stairs": [
+    { "id": "ST1", "flight": "1#", "landings": [
+      { "floor": "F1", "node": "S1-F1" },
+      { "floor": "F2", "node": "S1-F2" }
+    ]},
+    { "id": "ST2", "flight": "2#", "landings": [
+      { "floor": "F1", "node": "S2-F1" },
+      { "floor": "F2", "node": "S2-F2" }
+    ]}
+  ],
+  "routes": [
+    { "id": "R1", "label": "展厅疏散", "color": "#d62728", "legs": [
+      { "floor": "F1", "path": ["R-101", "A1", "B1", "C1", "S1-F1"] },
+      { "floor": "F2", "path": ["S1-F2", "C2", "D-E2"] }
+    ]},
+    { "id": "R2", "label": "办公区疏散", "color": "#1f6fd6", "legs": [
+      { "floor": "F1", "path": ["R-102", "B1", "C1", "S1-F1"] },
+      { "floor": "F2", "path": ["S1-F2", "B2", "D-W2"] }
+    ]},
+    { "id": "R3", "label": "北侧疏散", "color": "#2ca02c", "legs": [
+      { "floor": "F1", "path": ["C1", "B1", "E1", "D-N1"] }
+    ]},
+    { "id": "R4", "label": "断开示例线路", "color": "#e08a00", "legs": [
+      { "floor": "F1", "path": ["A1", "B1"] },
+      { "floor": "F2", "path": ["S2-F2", "N-404", "D-E2"] }
+    ]}
+  ]
+}
