@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "edits": [
+    {
+      "id": "moved-part",
+      "image": 1,
+      "note": "near-sharp shot has the fastener in its original place; keep it from 02-mid.png",
+      "enabled": true,
+      "shapes": [
+        {
+          "kind": "ellipse",
+          "cx": 157,
+          "cy": 196,
+          "rx": 26,
+          "ry": 28,
+          "strength": 1.0
+        }
+      ]
+    }
+  ]
+}

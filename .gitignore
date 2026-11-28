@@ -42,3 +42,11 @@ coverage/
 .idea/
 .vscode/
 *.swp
+
+# ---- focusstack 运行期产物 ----
+focusstack/focusstack-out/
+focusstack/result/
+focusstack/result-*/
+focusstack/result-edited/
+focusstack/result-block/
+focusstack/samples-again/
