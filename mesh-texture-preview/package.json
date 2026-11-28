@@ -1,0 +1,19 @@
+{
+  "name": "mesh-texture-preview",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "离线 WebGL 织物网格贴图预览与拼缝/拉伸诊断工具",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "tsc -p tsconfig.json && node --test tests/*.test.ts",
+    "test:browser": "npm run build && node tests/browser.smoke.mjs",
+    "demo": "npm run build && python3 -m http.server 4174",
+    "samples": "npm run build && node tools/build-samples.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.7",
+    "typescript": "5.9.3"
+  }
+}

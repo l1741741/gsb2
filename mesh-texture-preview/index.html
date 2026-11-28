@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>织物网格贴图预览 · Mesh Texture Preview</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="title-block">
+        <h1>织物网格贴图预览</h1>
+        <p class="subtitle">离线检查展开纹样的局部拉伸、拼缝与翻面</p>
+      </div>
+      <div class="header-actions">
+        <label class="file-button">
+          载入 PNG
+          <input id="texture-input" type="file" accept="image/png,image/*" hidden />
+        </label>
+        <label class="file-button">
+          载入网格
+          <input id="mesh-input" type="file" accept=".json,.obj,.fabricmesh,.fmesh,.txt" hidden />
+        </label>
+        <div class="sample-buttons" role="group" aria-label="内置样例">
+          <span class="sample-label">样例</span>
+          <button type="button" data-sample="gingham">格纹</button>
+          <button type="button" data-sample="split">断开拼缝</button>
+          <button type="button" data-sample="flipped">翻面</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="viewer" aria-label="网格预览">
+        <div class="viewer-canvas-wrap">
+          <canvas id="view" aria-label="织物网格与纹理坐标预览"></canvas>
+          <div id="gl-error" class="gl-error" hidden>
+            <strong>无法创建 WebGL2 画布</strong>
+            <p id="gl-error-text">当前浏览器或显卡驱动不支持 WebGL2，网格预览不可用。诊断数值面板仍然可用。</p>
+          </div>
+          <div class="pane-labels" aria-hidden="true">
+            <span class="pane-label">布面位置</span>
+            <span class="pane-label">纹理坐标</span>
+          </div>
+        </div>
+        <div class="viewer-toolbar">
+          <div class="segmented" role="group" aria-label="显示通道">
+            <button type="button" data-channel="texture" class="active">纹理</button>
+            <button type="button" data-channel="stretch">拉伸</button>
+            <button type="button" data-channel="wireframe">线框</button>
+          </div>
+          <div class="toggle-group" role="group" aria-label="叠加层">
+            <label><input id="toggle-boundary" type="checkbox" checked /> 边界</label>
+            <label><input id="toggle-seams" type="checkbox" checked /> 拼缝</label>
+            <label><input id="toggle-handles" type="checkbox" checked /> 控制点</label>
+            <label><input id="toggle-grid" type="checkbox" /> 网格线</label>
+          </div>
+          <div class="segmented" role="group" aria-label="坏片处理">
+            <span class="sample-label">坏片</span>
+            <button type="button" data-badpatch="retain" class="active" title="保留坏片并用洋红色标出">保留</button>
+            <button type="button" data-badpatch="disable" title="暂时停用坏片，仅保留轮廓">停用</button>
+          </div>
+          <div class="history-actions">
+            <button id="undo" type="button" title="撤销 (Ctrl/Cmd+Z)">撤销</button>
+            <button id="redo" type="button" title="重做 (Ctrl/Cmd+Shift+Z)">重做</button>
+            <button id="fit" type="button" title="适应视图">适应</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="inspector" aria-label="诊断面板">
+        <section class="panel">
+          <header class="panel-header">
+            <h2>诊断摘要</h2>
+            <span id="history-depth" class="badge" title="撤销步数"></span>
+          </header>
+          <div id="summary" class="summary-grid"></div>
+          <p id="status" class="status-line" role="status"></p>
+        </section>
+
+        <section class="panel">
+          <header class="panel-header">
+            <h2>局部数值</h2>
+            <span id="selection-label" class="badge">未选中</span>
+          </header>
+          <div id="local-detail" class="local-detail">
+            <p class="hint">在布面或纹理坐标画布中点选顶点、三角形或拼缝。</p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <header class="panel-header">
+            <h2>拼缝</h2>
+            <span class="hint">相邻三角形可声明两侧取不同纹理坐标</span>
+          </header>
+          <div id="seam-list" class="seam-list"></div>
+          <form id="seam-form" class="seam-form">
+            <label>三角 A <input id="seam-a" type="number" min="0" step="1" required /></label>
+            <label>三角 B <input id="seam-b" type="number" min="0" step="1" required /></label>
+            <label>类型
+              <select id="seam-kind">
+                <option value="continuous">连续</option>
+                <option value="split">断开</option>
+              </select>
+            </label>
+            <label>ID <input id="seam-id" type="text" /></label>
+            <button type="submit">声明拼缝</button>
+          </form>
+        </section>
+
+        <section class="panel">
+          <header class="panel-header"><h2>诊断阈值</h2></header>
+          <div class="thresholds">
+            <label>拉伸上限 <input id="threshold-stretch" type="number" step="0.05" min="1.01" /></label>
+            <label>塌陷下限 <input id="threshold-collapse" type="number" step="0.01" min="0.001" /></label>
+            <label>拼缝容差 <input id="threshold-seam" type="number" step="0.0005" min="0.00001" /></label>
+          </div>
+        </section>
+
+        <section class="panel">
+          <header class="panel-header"><h2>导出</h2></header>
+          <div class="export-actions">
+            <button id="export-mesh" type="button">导出 mesh.json</button>
+            <button id="export-preview" type="button">导出预览 PNG</button>
+            <button id="export-fabricmesh" type="button">导出 .fabricmesh</button>
+            <label class="file-button small">
+              重新载入导出文件
+              <input id="reload-mesh" type="file" accept=".json,.fabricmesh,.fmesh,.txt,.obj" hidden />
+            </label>
+          </div>
+          <div id="export-report" class="export-report"></div>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="app-footer">
+      <span>离线工具，无网络请求。拖动控制点会拉伸纹理；拼缝两侧可各自取样。</span>
+      <span id="fps" class="fps"></span>
+    </footer>
+
+    <script type="module" src="./build/src/main.js"></script>
+  </body>
+</html>
