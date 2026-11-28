@@ -19,6 +19,14 @@ data.json
 *.sqlite
 *.sqlite3
 tmp/
+# thermal_align 运行产物（对齐图/掩模/叠图/合成样例）
+output/
+sample_data/
+*_aligned_uint16.png
+*_coverage_mask.png
+*_overlay.png
+*_preview.png
+*_meta.json
 
 # ---- 依赖与构建产物 ----
 node_modules/
