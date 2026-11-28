@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>弧形展墙贴图预览（离线）</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header>
+  <h1>弧形展墙贴图预览</h1>
+  <div class="toolbar">
+    <button id="view-unwrap" type="button">展开图</button>
+    <button id="view-wall" type="button">墙体预览</button>
+    <button id="flip" type="button">翻面观看</button>
+    <label>环绕视角 <input id="orbit" type="range" min="-180" max="180" step="1" value="0"></label>
+    <button id="add-anchor" type="button">添加定位点</button>
+    <label class="file-btn">导入 PNG<input id="png-input" type="file" accept="image/png"></label>
+    <label class="file-btn">导入项目<input id="project-input" type="file" accept="application/json,.json"></label>
+    <button id="export-project" type="button">导出项目 JSON</button>
+    <button id="export-png" type="button">导出裁切预览 PNG</button>
+  </div>
+</header>
+<main>
+  <aside id="panel">
+    <section>
+      <h2>墙面（圆柱片）</h2>
+      <label>半径 mm <input id="radius" type="number" min="1" step="1"></label>
+      <label>起始角 ° <input id="start-angle" type="number" step="0.1"></label>
+      <label>结束角 ° <input id="end-angle" type="number" step="0.1"></label>
+      <label>墙高 mm <input id="wall-height" type="number" min="1" step="1"></label>
+      <button id="apply-wall" type="button">应用墙面参数</button>
+      <p id="wall-info" class="info"></p>
+    </section>
+    <section>
+      <h2>画面布置</h2>
+      <label>水平偏移 mm <input id="art-offset" type="number" step="1"></label>
+      <label>画面宽 mm <input id="art-width" type="number" min="1" step="1"></label>
+      <label>底边高 mm <input id="art-bottom" type="number" step="1"></label>
+      <label>画面高 mm <input id="art-height" type="number" min="1" step="1"></label>
+      <button id="apply-artwork" type="button">应用画面布置</button>
+    </section>
+    <section>
+      <h2>定位点</h2>
+      <ul id="anchor-list"></ul>
+      <div id="selection" class="selection">未选中定位点</div>
+    </section>
+  </aside>
+  <section id="stage">
+    <canvas id="canvas" width="1280" height="800"></canvas>
+    <p id="hint" class="info"></p>
+  </section>
+</main>
+<div id="messages"></div>
+<script type="module" src="./src/app.js"></script>
+</body>
+</html>
