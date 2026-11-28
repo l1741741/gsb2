@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <title>lightstrip 三维预览</title>
+  <style>
+    body { margin: 0; font: 13px/1.5 system-ui, sans-serif; background: #10151c; color: #d8e0e8; display: flex; height: 100vh; }
+    #view { flex: 1; display: block; cursor: grab; }
+    #panel { width: 320px; padding: 12px 16px; background: #18202b; overflow-y: auto; }
+    #panel h1 { font-size: 15px; margin: 4px 0 10px; }
+    #panel select { width: 100%; margin-bottom: 10px; background: #0f141b; color: inherit; border: 1px solid #2c3a4d; padding: 4px; }
+    #diag { white-space: pre-wrap; font-family: ui-monospace, monospace; font-size: 12px; }
+    #diag .bad { color: #ff7a7a; }
+    #diag .ok { color: #7ade8a; }
+    .legend { margin-top: 10px; font-size: 12px; color: #9fb0c3; }
+    .swatch { display: inline-block; width: 10px; height: 10px; margin-right: 5px; border-radius: 2px; }
+    label { display: block; margin-top: 8px; color: #9fb0c3; }
+  </style>
+</head>
+<body>
+  <canvas id="view"></canvas>
+  <div id="panel">
+    <h1>异形灯带 · 离线预览</h1>
+    <select id="case"></select>
+    <div id="diag"></div>
+    <div class="legend">
+      <div><span class="swatch" style="background:#e8a33d"></span>灯带表面 (strip)</div>
+      <div><span class="swatch" style="background:#3d9be8"></span>端盖 (cap, 仅开口路线)</div>
+      <div><span class="swatch" style="background:#ff4d6d"></span>自相交三角形</div>
+      <div><span class="swatch" style="background:#f2f2f2"></span>路线控制点(带序号)</div>
+    </div>
+    <label><input type="checkbox" id="wire" /> 线框模式</label>
+    <div class="legend">拖拽旋转 · 滚轮缩放</div>
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

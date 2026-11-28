@@ -1,0 +1,15 @@
+{
+  "name": "closed-loop",
+  "profile": "flat-strip",
+  "closed": true,
+  "samplesPerSegment": 20,
+  "points": [
+    { "position": [0, 0, 0], "width": 0.3 },
+    { "position": [2.2, 0, 0], "width": 0.34 },
+    { "position": [3.0, 0.3, 1.0], "width": 0.34 },
+    { "position": [2.6, 0.5, 2.4], "width": 0.28 },
+    { "position": [1.2, 0.4, 3.0], "width": 0.28 },
+    { "position": [-0.2, 0.1, 2.2], "width": 0.32 },
+    { "position": [-0.4, 0, 0.8], "width": 0.32 }
+  ]
+}

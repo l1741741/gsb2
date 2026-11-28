@@ -42,3 +42,6 @@ coverage/
 .idea/
 .vscode/
 *.swp
+
+# ---- lightstrip 导出产物 ----
+lightstrip/out/
