@@ -1,0 +1,29 @@
+1
+00:00:01,000 --> 00:00:03,000
+Welcome to the show.
+
+2
+00:00:04,000 --> 00:00:08,000
+Tonight we will look at three
+cities rebuilt by their people.
+
+3
+00:00:09,000 --> 00:00:11,000
+First, the harbor district.
+
+4
+00:00:12,000 --> 00:00:13,500
+Then the old town.
+
+5
+00:00:14,000 --> 00:00:16,000
+And finally the riverfront,
+where the market now stands.
+
+6
+00:00:17,000 --> 00:00:17,800
+The city never sleeps.
+
+7
+00:00:17,800 --> 00:00:18,500
+Neither do its people.
