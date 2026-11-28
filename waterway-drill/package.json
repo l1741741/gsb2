@@ -1,0 +1,24 @@
+{
+  "name": "waterway-drill",
+  "version": "1.0.0",
+  "private": true,
+  "description": "回合制浏览器水道演练：闸门调度、容量分叉与可复核记录",
+  "type": "module",
+  "engines": {
+    "node": ">=22.6.0"
+  },
+  "scripts": {
+    "test": "node --test",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc -p tsconfig.build.json",
+    "demo": "python3 -m http.server 4173",
+    "serve": "npm run build && npm run demo"
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "^0.1.80",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^22.20.7",
+    "jsdom": "^26.1.0",
+    "typescript": "^5.9.3"
+  }
+}

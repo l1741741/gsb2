@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>水道演练 · Waterway Drill</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="layout">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <div>
+            <h1>水道演练</h1>
+            <p id="level-summary">回合制闸门调度 · 容量分叉 · 可复核记录</p>
+          </div>
+        </div>
+        <div class="level-switch" role="group" aria-label="选择关卡">
+          <label for="level-select">关卡</label>
+          <select id="level-select"></select>
+        </div>
+      </header>
+
+      <section class="stage">
+        <div class="canvas-wrap">
+          <canvas id="scene" width="980" height="470" aria-label="水道关卡地图"></canvas>
+        </div>
+
+        <aside class="hud" aria-live="polite">
+          <div class="status-card">
+            <h2 id="level-name">—</h2>
+            <div class="meters">
+              <div class="meter">
+                <span class="meter-label">回合</span>
+                <strong id="turn-readout">0 / 0</strong>
+              </div>
+              <div class="meter">
+                <span class="meter-label">目标</span>
+                <strong id="goal-readout">—</strong>
+              </div>
+            </div>
+            <div id="outcome-banner" class="outcome-banner" hidden></div>
+            <p id="failure-detail" class="failure-detail" hidden></p>
+          </div>
+
+          <div class="panel">
+            <h3>本回合布置 <span id="pending-count" class="chip">0</span></h3>
+            <div id="gate-list" class="gate-list"></div>
+            <div class="actions">
+              <button id="confirm" class="primary" type="button">确认结算</button>
+              <button id="undo" class="secondary" type="button">撤回一步</button>
+              <button id="clear-pending" class="ghost" type="button">取消布置</button>
+            </div>
+            <p class="hint">可先改多条闸门，再一次性确认。结算顺序只由高程与支路容量决定。</p>
+          </div>
+
+          <div class="panel">
+            <h3>记录</h3>
+            <div class="record-actions">
+              <button id="export-record" class="ghost" type="button">导出记录</button>
+              <button id="export-file" class="ghost" type="button">下载 .json</button>
+              <button id="import-record" class="ghost" type="button">导入记录</button>
+              <input id="import-file" type="file" accept="application/json,.json" hidden>
+            </div>
+            <div id="record-status" class="record-status" role="status"></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="details">
+        <div class="panel wide">
+          <h3>上一回合台账</h3>
+          <div id="ledger" class="ledger"></div>
+          <p class="ledger-note">恒等式：起始 + 来水 + 溢入 + 进水口 − 出水口 − 外排 − 溢流 = 留池</p>
+        </div>
+
+        <div class="panel wide">
+          <h3>支路实际通过量</h3>
+          <div id="edge-report" class="edge-report"></div>
+        </div>
+      </section>
+
+      <section class="panel wide history-panel">
+        <h3>回合历史</h3>
+        <div id="history" class="history"></div>
+      </section>
+    </main>
+
+    <dialog id="replay-dialog" class="replay-dialog">
+      <form method="dialog" class="replay-form">
+        <h2>重放记录</h2>
+        <p id="replay-meta" class="replay-meta"></p>
+        <div class="replay-body">
+          <div class="replay-canvas-wrap">
+            <canvas id="replay-scene" width="980" height="470"></canvas>
+          </div>
+          <div class="replay-side">
+            <div id="replay-readout" class="replay-readout"></div>
+          </div>
+        </div>
+        <div class="replay-controls">
+          <button id="replay-prev" type="button" class="secondary">上一个回合</button>
+          <span id="replay-cursor" class="replay-cursor">0 / 0</span>
+          <button id="replay-next" type="button" class="secondary">下一个回合</button>
+          <button id="replay-close" type="submit" class="primary">关闭</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
