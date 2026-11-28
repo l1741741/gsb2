@@ -1,0 +1,88 @@
+{
+  "matte": "#FFFFFF",
+  "default_metric": "euclidean",
+  "rules": [
+    {
+      "id": "red-coat",
+      "source": "#E8503A",
+      "target": "#32AA5A",
+      "tolerance": 25,
+      "priority": 10
+    },
+    {
+      "id": "warm-shadow",
+      "source": "#D86048",
+      "target": "#B478FF",
+      "tolerance": 40,
+      "priority": 5
+    },
+    {
+      "id": "blue-coat",
+      "source": "#3C6EC8",
+      "target": "#F0C83C",
+      "tolerance": 30,
+      "priority": 8
+    },
+    {
+      "id": "disabled-demo",
+      "source": "#123456",
+      "target": "#000000",
+      "tolerance": 0,
+      "priority": 9,
+      "enabled": false
+    }
+  ],
+  "protected": [
+    {
+      "type": "rect",
+      "x0": 95,
+      "y0": 70,
+      "x1": 130,
+      "y1": 100
+    }
+  ],
+  "schemes": [
+    {
+      "id": "spring",
+      "name": "春芽配色",
+      "rule_refs": [
+        "red-coat",
+        "warm-shadow",
+        "blue-coat"
+      ]
+    },
+    {
+      "id": "autumn",
+      "name": "秋实配色(蓝区关闭 + 红区改棕)",
+      "rule_refs": [
+        {
+          "id": "blue-coat",
+          "enabled": false
+        },
+        {
+          "id": "red-coat",
+          "target": "#8A5A2B"
+        },
+        "warm-shadow"
+      ]
+    },
+    {
+      "id": "order-check-a",
+      "name": "顺序自检 A",
+      "rule_refs": [
+        "blue-coat",
+        "warm-shadow",
+        "red-coat"
+      ]
+    },
+    {
+      "id": "order-check-b",
+      "name": "顺序自检 B",
+      "rule_refs": [
+        "warm-shadow",
+        "red-coat",
+        "blue-coat"
+      ]
+    }
+  ]
+}

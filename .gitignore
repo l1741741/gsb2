@@ -20,6 +20,9 @@ data.json
 *.sqlite3
 tmp/
 
+# color_proof 试样输出(样例源图与配色 JSON 保留入库, 仅忽略生成物)
+examples/output/
+
 # ---- 依赖与构建产物 ----
 node_modules/
 __pycache__/
